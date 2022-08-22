@@ -1,10 +1,13 @@
 <template>
-    <h2 class="text-orange-500 text-center flex items-center text-xl font-bold">L2high.top</h2>
+    <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9 z-50" alt="Flowbite Logo" />
+    <span class="self-center text-xl font-semibold whitespace-nowrap text-orange-500 z-50">
+        <slot></slot>
+    </span>
 </template>
 
 <script>
 export default {
-    name: "HeaderLogoComponent"
+    name: "HeaderLogoComponent",
 }
 </script>
 

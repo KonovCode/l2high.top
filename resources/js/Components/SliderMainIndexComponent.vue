@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto mt-3 p-1 border border-3 border-dark d-none d-lg-block d-xl-block d-xxl-block d-md-block">
+    <div class="container mx-auto mt-3 p-1 border border-3 border-dark hidden md:block">
         <!-- img-size 450x300 -->
         <div id="slides_list">
             <slot></slot>

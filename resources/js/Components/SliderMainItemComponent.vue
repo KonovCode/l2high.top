@@ -94,7 +94,7 @@ export default {
     transition: all 500ms ease-in-out;
     cursor: pointer;
     max-width: 120px;
-    min-width: 50px;
+    min-width: 40px;
     background-color: rgb(31 41 55);
 }
 

@@ -7,7 +7,6 @@
         <Main></Main>
 
     <Footer></Footer>
-
     </div>
 </template>
 
@@ -15,6 +14,7 @@
 import Header from "@/Layouts/Header.vue";
 import Main from "@/Layouts/Main.vue";
 import Footer from "@/Layouts/Footer.vue";
+
 export default {
     name: "Home",
     components: {

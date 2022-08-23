@@ -28,7 +28,16 @@ const showingNavigationDropdown = ref(false);
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    Главная
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('add')" :active="route().current('add')">
+                                    Добавить проект
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('status')" :active="route().current('status')">
+                                    Купить status
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('reclame')" :active="route().current('reclame')">
+                                    О Рекламе
                                 </BreezeNavLink>
                             </div>
                         </div>

@@ -1,16 +1,10 @@
-<script setup>
-import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { Head } from '@inertiajs/inertia-vue3';
-
-</script>
-
 <template>
-    <Head title="Dashboard" />
+    <Head title="l2high/Купить статус" />
 
-    <BreezeAuthenticatedLayout>
+    <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Главная
+                Купить статус
             </h2>
         </template>
 
@@ -18,10 +12,23 @@ import { Head } from '@inertiajs/inertia-vue3';
             <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        Главная страница
+                        Страница покупки статуса
                     </div>
                 </div>
             </div>
         </div>
-    </BreezeAuthenticatedLayout>
+    </AuthenticatedLayout>
 </template>
+
+<script>
+import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
+import {Head} from '@inertiajs/inertia-vue3';
+export default {
+    name: "BuyStatusComponent",
+    components: {AuthenticatedLayout, Head},
+}
+</script>
+
+<style scoped>
+
+</style>

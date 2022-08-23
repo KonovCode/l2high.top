@@ -1,5 +1,5 @@
 <template>
-    <div class="grid-cols-6">
+    <div class="grid-cols-6 px-6 row-span-1">
        <slot></slot>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="footer bg-gray-900 px-6 h-14">
+    <div class="footer bg-gray-900 px-6 h-14 mt-12">
         <h2>Footer</h2>
     </div>
 </template>

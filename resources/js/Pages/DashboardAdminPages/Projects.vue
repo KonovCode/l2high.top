@@ -1,23 +1,25 @@
 <template>
-    <Head title="l2high/Купить статус" />
 
     <AuthenticatedLayout>
+
         <template #header>
-            Купить статус
+            Все проекты
         </template>
 
         <div class="p-6 bg-white border-b border-gray-200">
-            Страница покупки статуса
+            Страница всех проектов
         </div>
 
     </AuthenticatedLayout>
+
 </template>
 
 <script>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import {Head} from '@inertiajs/inertia-vue3';
+import { Head } from "@inertiajs/inertia-vue3";
+
 export default {
-    name: "BuyStatusComponent",
+    name: "Projects",
     components: {AuthenticatedLayout, Head},
 }
 </script>

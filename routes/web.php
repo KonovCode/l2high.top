@@ -30,6 +30,12 @@ Route::get('/add', [\App\Http\Controllers\UserDashboard\AddProjectController::cl
 Route::get('/status', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'index'])->middleware(['auth', 'verified'])->name('status');
 Route::get('/reclame', [\App\Http\Controllers\UserDashboard\ReclameController::class, 'index'])->middleware(['auth', 'verified'])->name('reclame');
 
+Route::get('/add-project', [\App\Http\Controllers\AdminDashboard\AddProjectController::class, 'index'])->name('add.project');
+Route::get('/banner', [\App\Http\Controllers\AdminDashboard\BannerController::class, 'index'])->name('banner');
+Route::get('/projects', [\App\Http\Controllers\AdminDashboard\ProjectController::class, 'index'])->name('projects');
+Route::get('/users', [\App\Http\Controllers\AdminDashboard\UserController::class, 'index'])->name('users');
+Route::get('/price', [\App\Http\Controllers\AdminDashboard\PriceController::class, 'index'])->name('price');
+
 
 
 require __DIR__.'/auth.php';

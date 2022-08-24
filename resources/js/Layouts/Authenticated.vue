@@ -11,6 +11,7 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
+
     <div>
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
@@ -26,7 +27,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div v-if="$page.props.auth.user.role === 'user'" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Главная
                                 </BreezeNavLink>
@@ -38,6 +39,27 @@ const showingNavigationDropdown = ref(false);
                                 </BreezeNavLink>
                                 <BreezeNavLink :href="route('reclame')" :active="route().current('reclame')">
                                     О Рекламе
+                                </BreezeNavLink>
+                            </div>
+
+                            <div v-if="$page.props.auth.user.role === 'admin'" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Мой кабинет
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('add.project')" :active="route().current('add.project')">
+                                    Добавить
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('banner')" :active="route().current('banner')">
+                                    Баннеры
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('projects')" :active="route().current('projects')">
+                                    Все Проекты
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('users')" :active="route().current('users')">
+                                    Пользователи
+                                </BreezeNavLink>
+                                <BreezeNavLink :href="route('price')" :active="route().current('price')">
+                                    Цены
                                 </BreezeNavLink>
                             </div>
                         </div>
@@ -81,12 +103,22 @@ const showingNavigationDropdown = ref(false);
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </BreezeResponsiveNavLink>
+                    <div
+                        v-if="$page.props.auth.user.role === 'user'"
+                        class="pt-2 pb-3 space-y-1">
+                        <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            Главная
+                        </BreezeNavLink>
+                        <BreezeNavLink :href="route('add')" :active="route().current('add')">
+                            Добавить проект
+                        </BreezeNavLink>
+                        <BreezeNavLink :href="route('status')" :active="route().current('status')">
+                            Купить status
+                        </BreezeNavLink>
+                        <BreezeNavLink :href="route('reclame')" :active="route().current('reclame')">
+                            О Рекламе
+                        </BreezeNavLink>
                     </div>
-
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
@@ -106,13 +138,25 @@ const showingNavigationDropdown = ref(false);
             <!-- Page Heading -->
             <header class="bg-white shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        <slot name="header" />
+                    </h2>
                 </div>
             </header>
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <div class="py-10">
+                    <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+
+
+                                <slot />
+
+
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>

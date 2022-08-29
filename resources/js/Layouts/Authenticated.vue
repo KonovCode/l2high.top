@@ -46,13 +46,13 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Мой кабинет
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('add.project')" :active="route().current('add.project')">
+                                <BreezeNavLink :href="route('projects.create')" :active="route().current('projects.create')">
                                     Добавить
                                 </BreezeNavLink>
                                 <BreezeNavLink :href="route('banner')" :active="route().current('banner')">
                                     Баннеры
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('projects')" :active="route().current('projects')">
+                                <BreezeNavLink :href="route('projects.index')" :active="route().current('projects.index')">
                                     Все Проекты
                                 </BreezeNavLink>
                                 <BreezeNavLink :href="route('users')" :active="route().current('users')">
@@ -150,9 +150,7 @@ const showingNavigationDropdown = ref(false);
                     <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-
-                                <slot />
-
+                            <slot />
 
                         </div>
                     </div>

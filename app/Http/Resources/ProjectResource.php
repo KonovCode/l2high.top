@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources;
 
-
-use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,7 +26,7 @@ class ProjectResource extends JsonResource
             'status_term' => $this->status_term,
             'premium' => $this->premium,
             'premium_term' => $this->premium_term,
-            'reserved' => $this->reserved,
+            'state_project' => $this->state_project,
             'obt' => $this->obt,
 
             'user' => new UserResource(User::findOrFail($this->user_id)),

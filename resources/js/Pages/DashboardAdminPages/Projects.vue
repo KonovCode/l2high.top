@@ -10,7 +10,7 @@
 
             <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
                 <thead class="text-white">
-                <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                <tr class="bg-gray-900 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
                     <th class="p-2 text-left">Название</th>
                     <th class="p-2 text-left">Рейты</th>
                     <th class="p-2 text-left">User/Email</th>
@@ -18,8 +18,10 @@
                 </tr>
                 </thead>
                 <tbody class="flex-1 sm:flex-none">
+
                 <tr v-for="project in projects.data" :key="project"
-                    class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+                    :class="{noState: project.state_project == 0, okState: project.state_project == 1}"
+                    class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 bg-gray-300">
 
                     <td class="border-grey-light border p-2">{{project.title}}</td>
 
@@ -30,7 +32,7 @@
                         <small>{{project.user.email}}</small>
                     </td>
 
-                    <td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+                    <td class="border-grey-light border hover:bg-blue-400 p-3 text-blue-500 hover:text-red-600 hover:font-medium cursor-pointer">
                         <button>Настройки</button>
                     </td>
 
@@ -64,6 +66,18 @@ export default {
     thead tr:not(:first-child) {
         display: none;
     }
+}
+
+.okState {
+    color: #468EF0;
+}
+
+.noState td button {
+    color: red;
+}
+
+.noState td {
+    color: orangered;
 }
 
 td:not(:last-child) {

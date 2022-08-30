@@ -46,19 +46,19 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Мой кабинет
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('projects.create')" :active="route().current('projects.create')">
+                                <BreezeNavLink :href="route('admin.projects.create')" :active="route().current('admin.projects.create')">
                                     Добавить
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('banner')" :active="route().current('banner')">
+                                <BreezeNavLink :href="route('admin.banner')" :active="route().current('admin.banner')">
                                     Баннеры
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('projects.index')" :active="route().current('projects.index')">
+                                <BreezeNavLink :href="route('admin.projects.index')" :active="route().current('admin.projects.index')">
                                     Все Проекты
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('users')" :active="route().current('users')">
+                                <BreezeNavLink :href="route('admin.users')" :active="route().current('admin.users')">
                                     Пользователи
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('price')" :active="route().current('price')">
+                                <BreezeNavLink :href="route('admin.price')" :active="route().current('admin.price')">
                                     Цены
                                 </BreezeNavLink>
                             </div>

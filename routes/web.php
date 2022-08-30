@@ -24,21 +24,23 @@ Route::get('/', function () {
     ]);
 });
 
-
 Route::get('/dashboard', [\App\Http\Controllers\UserDashboard\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/add', [\App\Http\Controllers\UserDashboard\AddProjectController::class, 'index'])->middleware(['auth', 'verified'])->name('add');
-Route::get('/status', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'index'])->middleware(['auth', 'verified'])->name('status');
-Route::get('/reclame', [\App\Http\Controllers\UserDashboard\ReclameController::class, 'index'])->middleware(['auth', 'verified'])->name('reclame');
 
-//Route::get('/add-project', [\App\Http\Controllers\AdminDashboard\AddProjectController::class, 'index'])->name('add.project');
-Route::get('/banner', [\App\Http\Controllers\AdminDashboard\BannerController::class, 'index'])->name('banner');
-//Route::get('/projects', [\App\Http\Controllers\AdminDashboard\ProjectController::class, 'index'])->name('projects');
-Route::get('/users', [\App\Http\Controllers\AdminDashboard\UserController::class, 'index'])->name('users');
-Route::get('/price', [\App\Http\Controllers\AdminDashboard\PriceController::class, 'index'])->name('price');
+Route::middleware(['can:admin' ,'auth'])->name('admin.')->group(function () {
+    Route::get('/banner', [\App\Http\Controllers\AdminDashboard\BannerController::class, 'index'])->name('banner');
+    Route::get('/users', [\App\Http\Controllers\AdminDashboard\UserController::class, 'index'])->name('users');
+    Route::get('/price', [\App\Http\Controllers\AdminDashboard\PriceController::class, 'index'])->name('price');
+    Route::resources([
+        'projects' => \App\Http\Controllers\AdminDashboard\ProjectController::class,
+    ]);
+});
 
-Route::resources([
-    'projects' => \App\Http\Controllers\AdminDashboard\ProjectController::class,
-]);
+Route::middleware(['can:user', 'auth', 'verified'])->group(function () {
+    Route::get('/add', [\App\Http\Controllers\UserDashboard\AddProjectController::class, 'index'])->middleware(['auth', 'verified'])->name('add');
+    Route::get('/status', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'index'])->middleware(['auth', 'verified'])->name('status');
+    Route::get('/reclame', [\App\Http\Controllers\UserDashboard\ReclameController::class, 'index'])->middleware(['auth', 'verified'])->name('reclame');
+});
+
 
 
 

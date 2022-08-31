@@ -31,7 +31,7 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Главная
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('add')" :active="route().current('add')">
+                                <BreezeNavLink :href="route('user-projects.create')" :active="route().current('user-projects.create')">
                                     Добавить проект
                                 </BreezeNavLink>
                                 <BreezeNavLink :href="route('status')" :active="route().current('status')">
@@ -109,7 +109,7 @@ const showingNavigationDropdown = ref(false);
                         <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Главная
                         </BreezeNavLink>
-                        <BreezeNavLink :href="route('add')" :active="route().current('add')">
+                        <BreezeNavLink :href="route('user-projects.create')" :active="route().current('user-projects.create')">
                             Добавить проект
                         </BreezeNavLink>
                         <BreezeNavLink :href="route('status')" :active="route().current('status')">
@@ -136,7 +136,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-white shadow relative overflow-hidden" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                         <slot name="header" />

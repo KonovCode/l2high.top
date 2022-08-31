@@ -21,14 +21,14 @@
                                 :class="{error: v$.title.$invalid, valid: !v$.title.$invalid}"
                                 class="w-4/5 p-2 bg-gray-900 rounded"
                                 placeholder="Название проэкта" type="text" name="title">
-                        <small class="text-red-500 mt-2" v-if="form.errors.title">{{form.errors.title}}</small>
+                        <form-error-message-component v-if="form.errors.title">{{form.errors.title}}</form-error-message-component>
 
                         <input
                                 v-model="form.website"
                                 :class="{error: v$.website.$invalid, valid: !v$.website.$invalid}"
                                 class="w-4/5 p-2 bg-gray-900 rounded-md border border-gray-700 focus:border-blue-700"
                                 placeholder="https://l2high.top" type="text" name="website">
-                        <small class="text-red-500 mt-2" v-if="form.errors.website">{{form.errors.website}}</small>
+                        <form-error-message-component v-if="form.errors.website">{{form.errors.website}}</form-error-message-component>
 
                         <div class="flex w-full md:flex-row sm:flex-col lg:flex-row xl:flex-row 2xl:flex-row">
 
@@ -41,8 +41,7 @@
                                     <option value="Interlude+">Interlude+</option>
                                 </select>
                             </div>
-
-                            <small class="text-red-500 mt-2" v-if="form.errors.chronicles">{{form.errors.chronicles}}</small>
+                            <form-error-message-component v-if="form.errors.chronicles">{{form.errors.chronicles}}</form-error-message-component>
 
                             <div class="flex flex-col m-auto mt-1">
                                 <div class="flex">
@@ -54,7 +53,7 @@
                                 </div>
 
                             </div>
-                            <small class="text-red-500 mt-2" v-if="form.errors.rates">{{form.errors.rates}}</small>
+                            <form-error-message-component v-if="form.errors.rates">{{form.errors.rates}}</form-error-message-component>
 
 
                             <div class="flex flex-col w-1/4 mt-1 m-auto">
@@ -64,7 +63,7 @@
                                         type="date" name="date_open">
                             </div>
                         </div>
-                        <small class="text-red-500 mt-2" v-if="form.errors.date_open">{{form.errors.date_open}}</small>
+                        <form-error-message-component v-if="form.errors.date_open">{{form.errors.date_open}}</form-error-message-component>
 
 
                         <div class="flex flex-col m-auto w-1/2">
@@ -90,7 +89,7 @@
                                             type="radio" name="status" value="default" checked>
                                     </label>
                                 </div>
-                                <small class="text-red-500 mt-2" v-if="form.errors.status">{{form.errors.status}}</small>
+                                <form-error-message-component v-if="form.errors.status">{{form.errors.status}}</form-error-message-component>
 
                             </div>
                             <label class="m-auto mt-3 text-blue-500" for="">
@@ -100,7 +99,7 @@
                                     class="ml-1" type="checkbox" name="premium" value="1">
                             </label>
                         </div>
-                        <small class="text-red-500 mt-2" v-if="form.errors.premium">{{form.errors.premium}}</small>
+                        <form-error-message-component v-if="form.errors.premium">{{form.errors.premium}}</form-error-message-component>
 
                         <button
                             :disabled="v$.$invalid"
@@ -118,6 +117,7 @@
 
 <script>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
+import FormErrorMessageComponent from "@/Components/FormErrorMessageComponent.vue";
 import {Head, useForm, usePage} from '@inertiajs/inertia-vue3';
 import {useVuelidate} from '@vuelidate/core'
 import {required, minLength, maxLength, alpha, url, helpers} from '@vuelidate/validators'
@@ -128,6 +128,7 @@ export default {
     components: {
         AuthenticatedLayout,
         Head,
+        FormErrorMessageComponent,
     },
 
     setup() {
@@ -147,7 +148,7 @@ export default {
 
         const rules = {
             title: { required, minLength: minLength(3), maxLength: maxLength(20) },
-            website: { required, url, maxLength: maxLength(30) },
+            website: { required, url, maxLength: maxLength(99) },
             chronicles: { required, minLength: minLength(4), maxLength: maxLength(20) },
             rates: { required, regRates },
             date_open: { required },

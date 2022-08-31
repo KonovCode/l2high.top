@@ -37,7 +37,7 @@ class ProjectRequest extends FormRequest
             'chronicles' => ['required', 'string', 'min:5', 'max:20'],
             'rates' => ['required', 'string', 'min:1', 'max:7'],
             'date_open' => ['required', 'date'],
-            'website' => ['required', 'string', 'min:4', 'max:30'],
+            'website' => ['required', 'string', 'min:4', 'max:99', 'unique:projects'],
             'status' => ['nullable', 'string', 'min:3', 'max:7'],
             'status_term' => ['nullable', 'date'],
             'premium' => ['nullable', 'boolean'],
@@ -77,7 +77,8 @@ class ProjectRequest extends FormRequest
             'website.required' => 'Это поле обязательное для заполнения',
             'website.string' => 'Недопустимое значение. Пример ввода - "https://l2high.top"',
             'website.min' => 'Минимальное количество символов 4',
-            'website.max' => 'Максимальное количество символов 30',
+            'website.max' => 'Максимальное количество символов 99',
+            'website.unique' => 'Проект с таким адрес уже существует',
 
             'status.max' => 'Ошибка! Не коректное значение!',
             'status.min' => 'Ошибка! Не коректное значение!',

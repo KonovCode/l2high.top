@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class ProjectRequest extends FormRequest
@@ -15,7 +16,13 @@ class ProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $response = Gate::inspect('admin');
+
+        if ($response->allowed()) {
+            return true;
+        } else {
+            return $response->message();
+        }
     }
 
     /**
@@ -43,7 +50,7 @@ class ProjectRequest extends FormRequest
     {
         $this->merge([
             'status_term' => ($this->status !== 'default' ? Carbon::now()->addDays(30)->toDateString() : null),
-            'premium_term' => ($this->premium !== false ? Carbon::now()->addDays(30)->toDateString() : null),
+            'premium_term' => ($this->premium !== 0 ? Carbon::now()->addDays(30)->toDateString() : null),
         ]);
     }
 

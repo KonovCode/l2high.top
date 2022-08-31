@@ -8,12 +8,11 @@
         <div class="p-6 bg-white border-b border-gray-200">
 
             <div class="flex items-center justify-center">
-
                 <div class="min-h-1/2 sm:w-5/6 w-4/5 bg-gray-900 px-8 border border-gray-900 rounded-2xl">
                     <form @submit.prevent="store" class="mx-auto flex items-center space-y-4 py-8 font-semibold text-gray-500 flex-col">
-                <span class=" h-5 w-13 text-white">
-                    <h2 class="text-white text-1xl">L2_HIGH</h2>
-                </span>
+                        <span class=" h-5 w-13 text-white">
+                            <h2 class="text-white text-1xl">L2_HIGH</h2>
+                        </span>
 
                         <h1 class="text-white text-2xl">Добавить проэкт</h1>
 
@@ -22,7 +21,6 @@
                                 :class="{error: v$.title.$invalid, valid: !v$.title.$invalid}"
                                 class="w-4/5 p-2 bg-gray-900 rounded"
                                 placeholder="Название проэкта" type="text" name="title">
-
                         <small class="text-red-500 mt-2" v-if="form.errors.title">{{form.errors.title}}</small>
 
                         <input
@@ -30,7 +28,6 @@
                                 :class="{error: v$.website.$invalid, valid: !v$.website.$invalid}"
                                 class="w-4/5 p-2 bg-gray-900 rounded-md border border-gray-700 focus:border-blue-700"
                                 placeholder="https://l2high.top" type="text" name="website">
-
                         <small class="text-red-500 mt-2" v-if="form.errors.website">{{form.errors.website}}</small>
 
                         <div class="flex w-full md:flex-row sm:flex-col lg:flex-row xl:flex-row 2xl:flex-row">
@@ -57,7 +54,6 @@
                                 </div>
 
                             </div>
-
                             <small class="text-red-500 mt-2" v-if="form.errors.rates">{{form.errors.rates}}</small>
 
 
@@ -68,7 +64,6 @@
                                         type="date" name="date_open">
                             </div>
                         </div>
-
                         <small class="text-red-500 mt-2" v-if="form.errors.date_open">{{form.errors.date_open}}</small>
 
 
@@ -162,7 +157,8 @@ export default {
         const v$ = useVuelidate(rules, form);
 
         function store() {
-            form.post(route('projects.store'));
+            form.post(route('admin.projects.store'));
+            form.reset();
         }
 
         return {form, store, v$};

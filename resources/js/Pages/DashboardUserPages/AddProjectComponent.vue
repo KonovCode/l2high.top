@@ -13,13 +13,13 @@
                     <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                         <!-- Col -->
                         <div
-                            class="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-                            style="background-image: url('https://gamefans.ru/uploads/posts/2020-11/1604597986_lineage2.jpg')"
+                            class="w-full bg-black hidden lg:block lg:w-5/12 bg-contain bg-center rounded-l-lg bg-no-repeat"
+                            style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/47/Lineage_2_Logo.jpg')"
                         ></div>
                         <!-- Col -->
                         <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none bg-gray-300">
                             <h3 class="pt-4 text-2xl text-center">Добавить проект</h3>
-                            <form @submit.prevent="store"
+                            <form @submit.prevent="store(v$.$validate)"
                                   class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                                 <div class="mb-4 md:flex md:justify-between">
                                     <div class="mb-4 md:mr-2 md:mb-0 w-full flex flex-col">
@@ -105,10 +105,10 @@
                                         type="submit"
                                         :disabled="v$.$invalid"
                                         :class="{'opacity-50 cursor-not-allowed': v$.$invalid}"
+                                        @click="notification(v$.$invalid)"
                                     >
                                         Добавить проект
                                     </button>
-
                                 </div>
                             </form>
                         </div>
@@ -126,7 +126,9 @@ import FormErrorMessageComponent from "@/Components/FormErrorMessageComponent.vu
 import {Head, useForm, usePage} from '@inertiajs/inertia-vue3';
 import { useVuelidate } from '@vuelidate/core'
 import {required, alphaNum, url, minLength, maxLength, maxValue, helpers} from "@vuelidate/validators";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {reactive} from "vue";
+
 export default {
     name: "AddProjectComponent",
     components: {AuthenticatedLayout, Head, FormErrorMessageComponent},
@@ -154,12 +156,35 @@ export default {
 
         const v$ = useVuelidate(rules, form);
 
-        function store() {
+        function store(validate) {
             form.post(route('user-projects.store'));
-            form.reset();
+            if(!validate) {
+                form.reset();
+            }
         }
 
-        return {form, store, v$};
+        function notification(status) {
+            if(!status) {
+                Swal.fire({
+                    title: 'Проект успешно добавлен!',
+                    text: 'Появится на главное странице после медерации (не больше 3 часов)',
+                    icon: 'success',
+                    confirmButtonText: 'Хорошо'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Ошибка!',
+                    text: 'Что то пошло не так!',
+                    icon: 'error',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
+        }
+
+        return {form, store, v$, notification};
     }
 }
 </script>
@@ -172,7 +197,8 @@ label.requiredNo:after
     content: " *";
 }
 
-.requiredYes {
+.requiredYes
+{
     color: green;
 }
 </style>

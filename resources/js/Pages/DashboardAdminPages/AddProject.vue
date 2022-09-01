@@ -6,108 +6,150 @@
         </template>
 
         <div class="p-6 bg-white border-b border-gray-200">
-
-            <div class="flex items-center justify-center">
-                <div class="min-h-1/2 sm:w-5/6 w-4/5 bg-gray-900 px-8 border border-gray-900 rounded-2xl">
-                    <form @submit.prevent="store" class="mx-auto flex items-center space-y-4 py-8 font-semibold text-gray-500 flex-col">
-                        <span class=" h-5 w-13 text-white">
-                            <h2 class="text-white text-1xl">L2_HIGH</h2>
-                        </span>
-
-                        <h1 class="text-white text-2xl">Добавить проэкт</h1>
-
-                        <input
-                                v-model.trim="form.title"
-                                :class="{error: v$.title.$invalid, valid: !v$.title.$invalid}"
-                                class="w-4/5 p-2 bg-gray-900 rounded"
-                                placeholder="Название проэкта" type="text" name="title">
-                        <form-error-message-component v-if="form.errors.title">{{form.errors.title}}</form-error-message-component>
-
-                        <input
-                                v-model="form.website"
-                                :class="{error: v$.website.$invalid, valid: !v$.website.$invalid}"
-                                class="w-4/5 p-2 bg-gray-900 rounded-md border border-gray-700 focus:border-blue-700"
-                                placeholder="https://l2high.top" type="text" name="website">
-                        <form-error-message-component v-if="form.errors.website">{{form.errors.website}}</form-error-message-component>
-
-                        <div class="flex w-full md:flex-row sm:flex-col lg:flex-row xl:flex-row 2xl:flex-row">
-
-                            <div class="relative inline-flex m-auto mt-1">
-                                <select
-                                    v-model="form.chronicles"
-                                    name="chronicles" class="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-black text-white hover:border-gray-400 focus:outline-none appearance-none">
-                                    <option value="Interlude">Interlude</option>
-                                    <option value="Gracia">Gracia</option>
-                                    <option value="Interlude+">Interlude+</option>
-                                </select>
-                            </div>
-                            <form-error-message-component v-if="form.errors.chronicles">{{form.errors.chronicles}}</form-error-message-component>
-
-                            <div class="flex flex-col m-auto mt-1">
-                                <div class="flex">
-                                    <span class="text-sm text-white border border-1 rounded-l px-1 py-3 bg-black whitespace-no-wrap">X</span>
-                                    <input
-                                        v-model="form.rates"
-                                        :class="{error: v$.rates.$invalid, valid: (!v$.rates.$invalid)}"
-                                        name="rates" class="border border-1 rounded-r w-24" type="text" placeholder="Рейты" id="rates"/>
+            <div class="container mx-auto">
+                <div class="flex justify-center px-6 my-12">
+                    <!-- Row -->
+                    <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+                        <!-- Col -->
+                        <div
+                            class="w-full h-auto bg-black hidden lg:block lg:w-5/12 bg-contain bg-center bg-no-repeat rounded-l-lg"
+                            style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/47/Lineage_2_Logo.jpg')"
+                        ></div>
+                        <!-- Col -->
+                        <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none bg-gray-300">
+                            <h3 class="pt-4 mb-3 text-2xl text-center font-semibold">Добавить проект</h3>
+                            <form @submit.prevent="store(v$.$invalid)"
+                                  class="px-8 pt-6 pb-4 mb-4 bg-white rounded">
+                                <div class="mb-4 md:flex md:justify-between">
+                                    <div class="mb-4 md:mr-2 md:mb-0 w-full flex flex-col">
+                                        <label
+                                            :class="{requiredNo: v$.title.$invalid , requiredYes: !v$.title.$invalid}"
+                                            class="block mb-2 text-sm font-bold text-gray-700" for="title">
+                                            Название
+                                        </label>
+                                        <input
+                                            v-model.trim="form.title"
+                                            class="px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="title"
+                                            type="text"
+                                            name="title"
+                                            placeholder="Название проекта"
+                                        />
+                                        <form-error-message-component v-if="form.errors.title">{{form.errors.title}}</form-error-message-component>
+                                    </div>
+                                    <div class="md:ml-2 w-full flex flex-col">
+                                        <label
+                                            :class="{requiredNo: v$.website.$invalid , requiredYes: !v$.website.$invalid}"
+                                            class="block mb-2 text-sm font-bold text-gray-700" for="website">
+                                            Ссылка на сайт
+                                        </label>
+                                        <input
+                                            v-model.trim="form.website"
+                                            class="px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="website"
+                                            type="text"
+                                            name="website"
+                                            placeholder="https://l2high.top"
+                                        />
+                                        <form-error-message-component v-if="form.errors.website">{{form.errors.website}}</form-error-message-component>
+                                    </div>
+                                </div>
+                                <div class="mb-4 w-full flex flex-col">
+                                    <label class="required block mb-2 text-sm font-bold text-gray-700">
+                                        Хроники
+                                    </label>
+                                    <select
+                                        v-model.trim="form.chronicles"
+                                        name="chronicles" class="border w-full border-gray-300 rounded-full h-10 pl-5 pr-10 text-gray-700 hover:border-gray-400 focus:outline-none appearance-none">
+                                        <option value="Interlude">Interlude</option>
+                                        <option value="Gracia">Gracia</option>
+                                        <option value="Interlude+">Interlude+</option>
+                                    </select>
+                                    <form-error-message-component v-if="form.errors.chronicles">{{form.errors.chronicles}}</form-error-message-component>
                                 </div>
 
-                            </div>
-                            <form-error-message-component v-if="form.errors.rates">{{form.errors.rates}}</form-error-message-component>
-
-
-                            <div class="flex flex-col w-1/4 mt-1 m-auto">
-                                <input
-                                        v-model="form.date_open"
-                                        class="bg-gray-900 rounded-md border border-gray-700 focus:border-blue-700"
-                                        type="date" name="date_open">
-                            </div>
-                        </div>
-                        <form-error-message-component v-if="form.errors.date_open">{{form.errors.date_open}}</form-error-message-component>
-
-
-                        <div class="flex flex-col m-auto w-1/2">
-                            <h5 class="text-center">Status</h5>
-                            <div class="border-1 border rounded border-white p-2">
-                                <div class="flex justify-between">
-                                    <label for="">
-                                        <small class="mr-1">Top</small>
+                                <div class="mb-4 md:flex md:justify-between">
+                                    <div class="mb-4 md:mr-2 md:mb-0 w-full flex flex-col">
+                                        <label
+                                            :class="{requiredNo: v$.rates.$invalid , requiredYes: !v$.rates.$invalid}"
+                                            class="block mb-2 text-sm font-bold text-gray-700" for="rates">
+                                            Рейты
+                                        </label>
                                         <input
-                                            v-model="form.status"
-                                            type="radio" name="status" value="top">
-                                    </label>
-                                    <label for="">
-                                        <small class="mr-1">Vip</small>
+                                            v-model.trim="form.rates"
+                                            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="rates"
+                                            name="rates"
+                                            type="text"
+                                            placeholder="1200"
+                                        />
+                                        <form-error-message-component v-if="form.errors.rates">{{form.errors.rates}}</form-error-message-component>
+                                    </div>
+                                    <div class="md:ml-2 w-full flex flex-col">
+                                        <label
+                                            :class="{requiredNo: v$.date_open.$invalid, requiredYes: !v$.date_open.$invalid}"
+                                            class="block mb-2 text-sm font-bold text-gray-700" for="date_open">
+                                            Дата открытия
+                                        </label>
                                         <input
-                                            v-model="form.status"
-                                            type="radio" name="status" value="vip">
-                                    </label>
-                                    <label for="">
-                                        <small class="mr-1">Default</small>
-                                        <input
-                                            v-model="form.status"
-                                            type="radio" name="status" value="default" checked>
-                                    </label>
+                                            v-model="form.date_open"
+                                            class="focus:border-blue-700"
+                                            type="date" name="date_open" id="date_open">
+                                        <form-error-message-component v-if="form.errors.date_open">{{form.errors.date_open}}</form-error-message-component>
+                                    </div>
                                 </div>
-                                <form-error-message-component v-if="form.errors.status">{{form.errors.status}}</form-error-message-component>
 
-                            </div>
-                            <label class="m-auto mt-3 text-blue-500" for="">
-                                Premium
-                                <input
-                                    v-model="form.premium"
-                                    class="ml-1" type="checkbox" name="premium" value="1">
-                            </label>
-                        </div>
+                                <div class="flex flex-col m-auto w-1/1">
+                                    <h5 class="text-center text-sm font-bold text-gray-700">Status</h5>
+                                    <div class="border-1 border rounded border-gray-700 p-2 bg-gray-300">
+                                        <div class="flex justify-between">
+                                            <label for="">
+                                                <small class="mr-1 text-red-600 font-bold">Top</small>
+                                                <input
+                                                    v-model="form.status"
+                                                    type="radio" name="status" value="top">
+                                            </label>
+                                            <label for="">
+                                                <small class="mr-1 text-yellow-600 font-bold">Vip</small>
+                                                <input
+                                                    v-model="form.status"
+                                                    type="radio" name="status" value="vip">
+                                            </label>
+                                            <label class="text-center" for="">
+                                                <small class="mr-1">Default</small>
+                                                <input
+
+                                                    v-model="form.status"
+                                                    type="radio" name="status" value="default" checked>
+                                            </label>
+                                        </div>
+                                        <form-error-message-component v-if="form.errors.status">{{form.errors.status}}</form-error-message-component>
+                                    </div>
+                                    <label class="m-auto mt-6 text-sm font-bold text-blue-600" for="">
+                                        Premium
+                                        <input
+                                            v-model="form.premium"
+                                            class="ml-1" type="checkbox" name="premium" value="1">
+                                    </label>
+                                    </div>
+
+
                         <form-error-message-component v-if="form.errors.premium">{{form.errors.premium}}</form-error-message-component>
 
-                        <button
-                            :disabled="v$.$invalid"
-                            :class="{disabled: v$.$invalid}"
-                            class="w-full p-2 bg-gray-50 rounded-full font-bold text-gray-900 border border-gray-700"
-                            type="submit">Добавить</button>
-
-                    </form>
+                                <div class="my-4 text-center">
+                                    <button
+                                        class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                        type="submit"
+                                        :disabled="v$.$invalid"
+                                        :class="{'opacity-50 cursor-not-allowed': v$.$invalid}"
+                                        @click="notification(v$.$invalid)"
+                                    >
+                                        Добавить проект
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,6 +163,7 @@ import FormErrorMessageComponent from "@/Components/FormErrorMessageComponent.vu
 import {Head, useForm, usePage} from '@inertiajs/inertia-vue3';
 import {useVuelidate} from '@vuelidate/core'
 import {required, minLength, maxLength, alpha, url, helpers} from '@vuelidate/validators'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 import {reactive} from "vue";
 
 export default {
@@ -157,31 +200,49 @@ export default {
 
         const v$ = useVuelidate(rules, form);
 
-        function store() {
+        function store(validate) {
             form.post(route('admin.projects.store'));
-            form.reset();
+            if(!validate) {
+                form.reset();
+            }
         }
 
-        return {form, store, v$};
+        function notification(status) {
+            if(!status) {
+                Swal.fire({
+                    title: 'Проект успешно добавлен!',
+                    text: 'Появится на главное странице после медерации (не больше 3 часов)',
+                    icon: 'success',
+                    confirmButtonText: 'Хорошо'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Ошибка!',
+                    text: 'Что то пошло не так!',
+                    icon: 'error',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
+        }
+        return {form, store, v$, notification};
     }
 }
 </script>
 
 <style scoped>
 
-.valid {
-    color: #468EF0;
-    font-weight: bolder;
+label.requiredNo:after
+{
+    color: red;
+    content: " *";
 }
 
-.error {
-   color: #d14d4d;
-    font-weight: normal;
-}
-
-.disabled {
-    opacity: 0.4 !important;
-    cursor: not-allowed;
+.requiredYes
+{
+    color: green;
 }
 
 </style>

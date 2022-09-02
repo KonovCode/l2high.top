@@ -36,9 +36,9 @@ Route::middleware(['can:admin' ,'auth'])->name('admin.')->group(function () {
 });
 
 Route::middleware(['can:user', 'auth', 'verified'])->group(function () {
-//    Route::get('/добавить', [\App\Http\Controllers\UserDashboard\ProjectUserController::class, 'create'])->name('create');
-//    Route::post('/store', [\App\Http\Controllers\UserDashboard\ProjectUserController::class, 'store'])->name('store.project');
-    Route::get('/status', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'index'])->name('status');
+    Route::get('/status/top', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'index'])->name('status.top');
+    Route::get('/status/vip', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'vip'])->name('status.vip');
+    Route::get('/status/premium', [\App\Http\Controllers\UserDashboard\BuyStatusController::class, 'premium'])->name('status.premium');
     Route::get('/reclame', [\App\Http\Controllers\UserDashboard\ReclameController::class, 'index'])->name('reclame');
     Route::resources([
        'user-projects' => \App\Http\Controllers\UserDashboard\ProjectUserController::class,

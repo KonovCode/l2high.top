@@ -1,8 +1,8 @@
 <template>
 
-    <BuyStatusComponent>
+    <BuyStatusComponent :status_name="'premium'">
         <form action="">
-        <div class="flex flex-col sm:flex-col lg:flex-row xl:flex-row md:flex-row justify-center items center my-20">
+        <div class="flex flex-col sm:flex-col lg:flex-row xl:flex-row md:flex-row justify-center items center my-10">
             <div class="py-12 sm:py-12 md:py-6 lg:py-6 xl:py-6 px-8 w-full md:max-w-min sm:w-full bg-blue-300 z-30">
                 <h1 class="text-blue-500 font-semibold text-xl ">Premium статус</h1>
                 <div class="text-center py-4 px-10">

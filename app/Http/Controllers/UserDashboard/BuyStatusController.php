@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\UserDashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\BuyStatusRequest;
+use App\Http\Resources\ProjectResource;
+use App\Models\Project;
+use http\Env\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class BuyStatusController extends Controller
 {
     public function index() {
+        $projects = ProjectResource::collection(Project::all()->where('user_id', Auth::user()->id));
+        return Inertia::render('DashboardUserPages/StatusPages/StatusPage', ['projects' => $projects]);
+    }
+
+    public function top() {
         return Inertia::render('DashboardUserPages/StatusPages/TopStatus');
     }
 

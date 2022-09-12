@@ -19,7 +19,7 @@
                :rates="project.rates"
                :chronicles="project.chronicles"
                :date_open="project.date_open"
-               @click="selected(project)"
+               :id="project.id"
            >
            </BuyStatusListItem>
         </section>
@@ -47,31 +47,6 @@ export default {
 
     props: {
         projects: Object,
-    },
-    data() {
-        return {
-            select_project: null,
-        }
-    },
-    mounted() {
-        if(localStorage.getItem('select_project')) {
-            try {
-                this.select_project = JSON.parse(localStorage.getItem('select_project'));
-            }
-            catch {
-                localStorage.removeItem('select_project');
-            }
-        }
-    },
-    methods: {
-        selected(project) {
-            if(!project) {
-                return
-            }
-            this.select_project = project;
-            const parsed = JSON.stringify(this.select_project);
-            localStorage.setItem('select_project', parsed);
-        }
     },
 }
 </script>

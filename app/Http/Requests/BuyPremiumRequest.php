@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class BuyStatusRequest extends FormRequest
+class BuyPremiumRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,26 +28,26 @@ class BuyStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'buy_service_id' => ['required', Rule::exists('services', 'id')],
+            'buy_premium_id' => ['required', Rule::exists('services', 'id')],
             'project_id' => ['required', Rule::exists('projects', 'id')->where('user_id', Auth::user()->id)],
+            'premium_state' => ['required'],
             'balance' => ['required'],
-            'is_state' => ['required', 'string', Rule::exists('projects', 'status')],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'balance.required' => 'Ошибка!. Не достаточно средств',
-            'is_state.required' => 'У вас уже есть top статус!'
+            'limit' => ['required', 'integer', 'min:0', 'max:7'],
         ];
     }
 
     protected function prepareForValidation()
     {
         $this->merge([
-            'balance' => (Auth::user()->balance >= Service::all()->find($this->buy_service_id)->price ? Auth::user()->balance : null),
+            'balance' => (Auth::user()->balance >= Service::all()->find($this->buy_premium_id)->price ? Auth::user()->balance : null),
+            'limit' => (count(Project::all()->where('premium', 1))),
         ]);
     }
 
+//    public function messages()
+//    {
+//        return [
+//            'buy_p'
+//        ]
+//    }
 }

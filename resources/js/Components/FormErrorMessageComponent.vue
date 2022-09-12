@@ -1,8 +1,8 @@
 <template>
 
-    <small class="text-red-500 mt-2">
+    <p class="text-red-500 mt-2">
         <slot></slot>
-    </small>
+    </p>
 
 </template>
 

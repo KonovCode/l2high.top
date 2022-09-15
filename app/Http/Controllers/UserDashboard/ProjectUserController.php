@@ -7,6 +7,8 @@ use App\Http\Requests\ProjectUserRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class ProjectUserController extends Controller
@@ -28,7 +30,9 @@ class ProjectUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('DashboardUserPages/AddProjectComponent');
+        $countProject = count(Project::all()->where('user_id', Auth::user()->id));
+
+        return Inertia::render('DashboardUserPages/AddProjectComponent', ['count_project' => $countProject]);
     }
 
     /**
@@ -40,6 +44,8 @@ class ProjectUserController extends Controller
     public function store(ProjectUserRequest $request)
     {
         new ProjectResource(Project::create($request->validated()));
+
+        Session::flash('message', 'Проект успешно добавлен!.');
 
         return redirect()->back();
     }

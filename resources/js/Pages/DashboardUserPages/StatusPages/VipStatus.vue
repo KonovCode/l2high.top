@@ -71,7 +71,6 @@ export default {
             useForm({
                 buy_service_id: null,
                 project_id: props.select_project.data.id,
-                is_state: props.select_project.data.status,
             })
         );
 

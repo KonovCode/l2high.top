@@ -2,13 +2,11 @@
 
 namespace App\Actions;
 
-use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
 
 class BuyStatusAction
 {
@@ -21,9 +19,21 @@ class BuyStatusAction
             'balance' => (Auth::user()->balance - $service->price),
         ]);
 
-        $project->update([
+        if($project->status === $service->name)
+        {
+            $project->update(['status_term' => Carbon::create($project->status_term)->addDays($service->term)->toDateString()]);
+        }
+
+        if($project->status === 'default')
+        {
+            $project->update(['status' => $service->name, 'status_term' => Carbon::now()->addDays($service->term)->toDateString()]);
+        }
+
+        if($project->status !== 'default' && $project->status !== $service->name) {
+            $project->update([
                 'status' => $service->name,
-                'status_term' => Carbon::now()->addDays($service->term)->toDateString(),
-        ]);
+                'status_term' => Carbon::now()->addDays($service->term)->toDateString()
+            ]);
+        }
     }
 }

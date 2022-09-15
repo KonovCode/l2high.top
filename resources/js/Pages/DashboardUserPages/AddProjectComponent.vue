@@ -19,7 +19,8 @@
                         <!-- Col -->
                         <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none bg-gray-300">
                             <h3 class="pt-4 text-2xl text-center">Добавить проект</h3>
-                            <form @submit.prevent="store(v$.$validate)"
+                            <form-error-message-component v-if="form.errors.count_control"> {{form.errors.count_control}} </form-error-message-component>
+                            <form @submit.prevent="store"
                                   class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
                                 <div class="mb-4 md:flex md:justify-between">
                                     <div class="mb-4 md:mr-2 md:mb-0 w-full flex flex-col">
@@ -105,9 +106,7 @@
                                         type="submit"
                                         :disabled="v$.$invalid"
                                         :class="{'opacity-50 cursor-not-allowed': v$.$invalid}"
-                                        @click="notification(v$.$invalid)"
-                                    >
-                                        Добавить проект
+                                    >Добавить проект
                                     </button>
                                 </div>
                             </form>
@@ -116,7 +115,6 @@
                 </div>
             </div>
         </div>
-
     </AuthenticatedLayout>
 </template>
 
@@ -125,15 +123,33 @@ import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import FormErrorMessageComponent from "@/Components/FormErrorMessageComponent.vue";
 import {Head, useForm, usePage} from '@inertiajs/inertia-vue3';
 import { useVuelidate } from '@vuelidate/core'
-import {required, alphaNum, url, minLength, maxLength, maxValue, helpers} from "@vuelidate/validators";
+import {required, url, minLength, maxLength, helpers} from "@vuelidate/validators";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {reactive} from "vue";
+import {reactive, computed, watchEffect} from "vue";
 
 export default {
     name: "AddProjectComponent",
     components: {AuthenticatedLayout, Head, FormErrorMessageComponent},
 
     setup() {
+
+        const result = computed(() => usePage().props.value.flash.message);
+
+        watchEffect(() => {
+            success(result);
+        });
+
+        function success(result) {
+            if(result.value) {
+                form.reset();
+                Swal.fire({
+                    title: result.value,
+                    text: 'Появится на главное странице после медерации (не больше 3 часов)',
+                    icon: 'success',
+                    confirmButtonText: 'Хорошо'
+                })
+            }
+        }
 
         const form = reactive(useForm({
             title: null,
@@ -147,44 +163,20 @@ export default {
         const regRates = helpers.regex(/^[GVE]{3}$|^[RvR]{3}$|^([1-9])(\d{1,6})$|^(\d(?:[\.,]\d)?)$/i);
 
         const rules = {
-            title: { required, alphaNum, minLength: minLength(3), maxLength: maxLength(20)},
+            title: { required, minLength: minLength(3), maxLength: maxLength(20)},
             website: { required, url, minLength: minLength(4), maxLength: maxLength(99) },
             chronicles: { required, minLength: minLength(5), maxLength: maxLength(20) },
-            rates: { required, regRates, maxValue: maxValue(9999999) },
+            rates: { required, regRates },
             date_open: { required },
         }
 
         const v$ = useVuelidate(rules, form);
 
-        function store(validate) {
+        function store() {
             form.post(route('user-projects.store'));
-            if(!validate) {
-                form.reset();
-            }
         }
 
-        function notification(status) {
-            if(!status) {
-                Swal.fire({
-                    title: 'Проект успешно добавлен!',
-                    text: 'Появится на главное странице после медерации (не больше 3 часов)',
-                    icon: 'success',
-                    confirmButtonText: 'Хорошо'
-                });
-            } else {
-                Swal.fire({
-                    title: 'Ошибка!',
-                    text: 'Что то пошло не так!',
-                    icon: 'error',
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                });
-            }
-        }
-
-        return {form, store, v$, notification};
+        return {form, store, v$};
     }
 }
 </script>

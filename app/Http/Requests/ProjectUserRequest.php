@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -39,7 +40,15 @@ class ProjectUserRequest extends FormRequest
             'rates' => ['required', 'string', 'min:1', 'max:7'],
             'date_open' => ['required', 'date'],
             'user_id' => ['required', Rule::exists('users', 'id')->where('id', Auth::user()->id)],
+            'count_control' => ['required', 'min:0', 'max:3', 'integer'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'count_control' => count(Project::all()->where('user_id', Auth::user()->id)),
+        ]);
     }
 
     public function messages()
@@ -68,6 +77,8 @@ class ProjectUserRequest extends FormRequest
 
             'date_open.required' => 'Укажите дату открытия',
             'date_open.date' => 'Не допустимый формат даты!',
+
+            'count_control.max' => 'Максимальное количество проектов на акаунте - 4',
         ];
     }
 }

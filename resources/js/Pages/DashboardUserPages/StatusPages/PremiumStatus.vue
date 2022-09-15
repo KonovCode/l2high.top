@@ -1,7 +1,7 @@
 <template>
 
     <BuyStatusComponent :status_name="'premium'" :selected_project="select_project.data">
-        <div class="w-full text-center"> <small> Осталось доступных premium: <span class="font-bold text-red-500">{{limit.counter}}</span> </small> </div>
+        <div class="w-full text-center"> <small> Осталось доступных premium: <span class="font-bold text-red-500">{{maxLimit.counter}}</span> </small> </div>
         <form @submit.prevent class="flex flex-col sm:flex-col lg:flex-row xl:flex-row md:flex-row justify-center items center my-10">
             <div class="py-12 sm:py-12 md:py-6 lg:py-6 xl:py-6 px-8 w-full md:max-w-min sm:w-full bg-blue-300 z-30">
                 <h1 class="text-blue-500 font-semibold text-xl ">{{premium_services[6].name.toUpperCase()}} статус</h1>
@@ -62,7 +62,6 @@ import { usePage, useForm } from "@inertiajs/inertia-vue3";
 import {reactive, ref, watchEffect} from "vue";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
-
 export default {
     name: "PremiumStatus",
     components: {BuyStatusComponent, FormErrorMessageComponent},
@@ -70,10 +69,10 @@ export default {
 
     setup(props) {
 
-        const limit = ref({counter: 7});
+        const maxLimit = ref({counter: 0});
 
         watchEffect(() => {
-            limit.value.counter = (limit.value.counter - props.limit)
+            maxLimit.value.counter = (7 - props.limit)
         });
 
         const form = reactive(
@@ -90,7 +89,6 @@ export default {
         }
 
         function notification(service) {
-
             if(Number(usePage().props.value.auth.user.balance) < service.price) {
                 Swal.fire({
                     title: 'Ошибка!',
@@ -101,7 +99,7 @@ export default {
                     showConfirmButton: false,
                     timer: 3000,
                 });
-            } else if(props.limit === 7 && props.select_project.data.premium === 0) {
+            } else if(props.limit === 7) {
                 Swal.fire({
                     title: 'Ошибка!',
                     text: 'Максимальное количество premium уже активировано',
@@ -113,7 +111,7 @@ export default {
                 });
             }
 
-            if(Number(usePage().props.value.auth.user.balance) >= service.price && props.limit < 7) {
+            if(Number(usePage().props.value.auth.user.balance) >= service.price && (props.limit <= 7 && props.select_project.data.premium === 1 || props.limit !== 7)) {
                 switch (props.select_project.data.premium) {
                     case (1) :
                         Swal.fire({
@@ -142,16 +140,8 @@ export default {
                 }
             }
         }
-
-        return {form, limit, notification}
-
+        return {form, maxLimit, notification}
     }
 }
 </script>
 
-<style scoped>
-    .lock {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-</style>

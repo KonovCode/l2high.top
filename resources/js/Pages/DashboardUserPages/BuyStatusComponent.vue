@@ -46,7 +46,6 @@ import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import {Head, Link} from '@inertiajs/inertia-vue3';
 import CardNavLink from '@/Components/CardNavLink.vue'
 
-
 export default {
     name: "BuyStatusComponent",
     components: {AuthenticatedLayout, CardNavLink, Head, Link},
@@ -106,15 +105,4 @@ export default {
         left: -8px;
         top: -23px;
     }
-
-    @keyframes flame {
-        from {
-
-        }
-        to {
-
-        }
-    }
-
-
 </style>

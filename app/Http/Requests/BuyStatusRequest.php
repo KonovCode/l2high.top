@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class BuyStatusRequest extends FormRequest
@@ -17,7 +18,13 @@ class BuyStatusRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $response = Gate::inspect('user');
+
+        if ($response->allowed()) {
+            return true;
+        } else {
+            return $response->message();
+        }
     }
 
     /**
@@ -31,7 +38,6 @@ class BuyStatusRequest extends FormRequest
             'buy_service_id' => ['required', Rule::exists('services', 'id')],
             'project_id' => ['required', Rule::exists('projects', 'id')->where('user_id', Auth::user()->id)],
             'balance' => ['required'],
-            'is_state' => ['required', 'string', Rule::exists('projects', 'status')],
         ];
     }
 

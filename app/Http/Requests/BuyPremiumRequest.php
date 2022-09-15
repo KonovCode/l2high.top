@@ -17,7 +17,13 @@ class BuyPremiumRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $response = Gate::inspect('user');
+
+        if ($response->allowed()) {
+            return true;
+        } else {
+            return $response->message();
+        }
     }
 
     /**
@@ -44,10 +50,14 @@ class BuyPremiumRequest extends FormRequest
         ]);
     }
 
-//    public function messages()
-//    {
-//        return [
-//            'buy_p'
-//        ]
-//    }
+    public function messages()
+    {
+        return [
+          'buy_premium_id.required' => 'Ошибка! Статус не найден',
+          'project_id.required' => 'Ошибка! Данный проект не найден!',
+          'balance. required' => 'Не достаточно денег не балансе =(',
+          'limit.max' => 'Все premium пакеты уже заняты =('
+        ];
+    }
+
 }

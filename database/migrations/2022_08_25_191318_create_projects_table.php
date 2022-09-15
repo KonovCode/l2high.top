@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('chronicles');
-            $table->integer('rates');
+            $table->string('rates');
             $table->date('date_open');
             $table->string('status')->default('default');
             $table->date('premium_term')->nullable();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Banner;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,6 +17,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    Banner::check_term();
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -46,6 +48,9 @@ Route::middleware(['can:user', 'auth', 'verified'])->group(function () {
     ]);
     Route::post('/buy', \App\Http\Controllers\UserDashboard\BuyStatusController::class)->name('buy');
     Route::post('/buy-premium', \App\Http\Controllers\UserDashboard\BuyPremiumController::class)->name('buy-premium');
+    Route::resources([
+        'user-banners' => \App\Http\Controllers\UserDashboard\BannerUserController::class,
+    ]);
 });
 
 

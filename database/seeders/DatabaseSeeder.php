@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
 
          \App\Models\User::factory(1)->create([
              'name' => 'admin',
@@ -98,6 +100,61 @@ class DatabaseSeeder extends Seeder
                 'show_term' => '90 Дней',
                 'price' => 25.00,
             ],
+            [
+                'id' => 10,
+                'name' => 'banner',
+                'description' => 'Баннер на главной странице сайта на 10 Дней',
+                'term' => 10,
+                'show_term' => '10 Дней',
+                'price' => 5.00,
+            ],
+            [
+                'id' => 11,
+                'name' => 'banner',
+                'description' => 'Баннер на главной странице сайта на 30 Дней',
+                'term' => 30,
+                'show_term' => '30 Дней',
+                'price' => 10.00,
+            ],
+            [
+                'id' => 12,
+                'name' => 'banner',
+                'description' => 'Баннер на главной странице сайта на 90 Дней',
+                'term' => 90,
+                'show_term' => '90 Дней',
+                'price' => 20.00,
+            ]
+        ]);
+
+        DB::table('banners')->insert([
+            [
+                'id' => 1,
+                'user_id' => 1,
+            ],
+            [
+                'id' => 2,
+                'user_id' => 1,
+            ],
+            [
+                'id' => 3,
+                'user_id' => 1,
+            ],
+            [
+                'id' => 4,
+                'user_id' => 1,
+            ],
+            [
+                'id' => 5,
+                'user_id' => 1,
+            ],
+            [
+                'id' => 6,
+                'user_id' => 1,
+            ],
+            [
+                'id' => 7,
+                'user_id' => 1,
+            ]
         ]);
     }
 }

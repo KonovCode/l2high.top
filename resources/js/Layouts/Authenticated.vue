@@ -37,6 +37,9 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('status')" :active="route().current('status') || route().current('status.top') || route().current('status.vip') || route().current('status.premium')">
                                     Купить status
                                 </BreezeNavLink>
+                                <BreezeNavLink :href="route('user-banners.index')" :active="route().current('user-banners.index')">
+                                    Купить баннер
+                                </BreezeNavLink>
                                 <BreezeNavLink :href="route('reclame')" :active="route().current('reclame')">
                                     О Рекламе
                                 </BreezeNavLink>
@@ -114,6 +117,9 @@ const showingNavigationDropdown = ref(false);
                         </BreezeNavLink>
                         <BreezeNavLink :href="route('status')" :active="route().current('status')">
                             Купить status
+                        </BreezeNavLink>
+                        <BreezeNavLink :href="route('user-banners.index')" :active="route().current('user-banners.index')">
+                            Купить баннер
                         </BreezeNavLink>
                         <BreezeNavLink :href="route('reclame')" :active="route().current('reclame')">
                             О Рекламе

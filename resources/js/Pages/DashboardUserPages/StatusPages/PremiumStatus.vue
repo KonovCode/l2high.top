@@ -1,5 +1,5 @@
 <template>
-
+    
     <BuyStatusComponent :status_name="'premium'" :selected_project="select_project.data">
         <div class="w-full text-center"> <small> Осталось доступных premium: <span class="font-bold text-red-500">{{maxLimit.counter}}</span> </small> </div>
         <form @submit.prevent class="flex flex-col sm:flex-col lg:flex-row xl:flex-row md:flex-row justify-center items center my-10">
@@ -85,7 +85,7 @@ export default {
 
         function store(id) {
             form.buy_premium_id = id;
-            form.post(route('buy-premium'));
+            form.post(route('buy-premium'), {preserveScroll: true});
         }
 
         function notification(service) {

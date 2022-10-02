@@ -31,7 +31,7 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Главная
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('user-projects.create')" :active="route().current('user-projects.create')">
+                                <BreezeNavLink :href="route('project.create')" :active="route().current('project.create')">
                                     Добавить проект
                                 </BreezeNavLink>
                                 <BreezeNavLink :href="route('status')" :active="route().current('status') || route().current('status.top') || route().current('status.vip') || route().current('status.premium')">
@@ -112,7 +112,7 @@ const showingNavigationDropdown = ref(false);
                         <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Главная
                         </BreezeNavLink>
-                        <BreezeNavLink :href="route('user-projects.create')" :active="route().current('user-projects.create')">
+                        <BreezeNavLink :href="route('project.create')" :active="route().current('project.create')">
                             Добавить проект
                         </BreezeNavLink>
                         <BreezeNavLink :href="route('status')" :active="route().current('status')">

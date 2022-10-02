@@ -21,6 +21,7 @@ class Project extends Model
         'status_term',
         'premium',
         'premium_term',
+        'state_project',
         'website',
         'user_id',
     ];

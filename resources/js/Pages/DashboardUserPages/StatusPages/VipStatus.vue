@@ -76,7 +76,7 @@ export default {
 
         function store(id) {
             form.buy_service_id = id;
-            form.post(route('buy'));
+            form.post(route('buy'), {preserveScroll: true});
         }
 
         function notification(service) {
@@ -98,7 +98,7 @@ export default {
                         store(service.id);
                         Swal.fire({
                             title: 'Спасибо за покупку!',
-                            text: 'Появится на главное странице после медерации (не больше 3 часов)',
+                            text: 'Ваш проект получит все привилегии Vip статуса',
                             icon: 'success',
                             confirmButtonText: 'Хорошо'
                         });
@@ -116,6 +116,12 @@ export default {
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 store(service.id);
+                                Swal.fire({
+                                    title: 'Спасибо за покупку!',
+                                    text: 'Вы продлили Vip статус на ' + service.show_term,
+                                    icon: 'success',
+                                    confirmButtonText: 'Хорошо'
+                                });
                             }
                         })
                         break;
@@ -132,6 +138,12 @@ export default {
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 store(service.id);
+                                Swal.fire({
+                                    title: 'Спасибо за покупку!',
+                                    text: 'Ваш статус изменен на Vip!',
+                                    icon: 'success',
+                                    confirmButtonText: 'Хорошо'
+                                });
                             }
                         })
                         break;

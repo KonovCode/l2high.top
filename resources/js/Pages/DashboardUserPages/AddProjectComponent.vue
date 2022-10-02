@@ -173,7 +173,7 @@ export default {
         const v$ = useVuelidate(rules, form);
 
         function store() {
-            form.post(route('user-projects.store'));
+            form.post(route('project.store'), {preserveScroll: true});
         }
 
         return {form, store, v$};

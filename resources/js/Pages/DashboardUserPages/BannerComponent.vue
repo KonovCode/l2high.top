@@ -20,7 +20,7 @@
                         </p>
 
                         <div class="status_title flex flex-col justify-between h-full">
-                            <small class="flex justify-center border rounded md:mt-3 w-1/2 md:w-full m-auto"
+                            <small class="flex justify-center border rounded md:mt-3 w-1/2 md:w-full m-auto md:m-0"
                                 :class="banner.reserved === 1 ? 'text-orange-500 border-red-400' : 'text-green-500 border-green-400'"
                                 v-text="banner.reserved === 1 ? 'No' : 'Ok'"></small>
 

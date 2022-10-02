@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserDashboard\ProjectUserController;
 use App\Models\Banner;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,9 +44,12 @@ Route::middleware(['can:user', 'auth', 'verified'])->group(function () {
     Route::get('/status/vip/{id?}', [\App\Http\Controllers\UserDashboard\StatusController::class, 'vip'])->name('status.vip');
     Route::get('/status/premium/{id?}', [\App\Http\Controllers\UserDashboard\StatusController::class, 'premium'])->name('status.premium');
     Route::get('/reclame', [\App\Http\Controllers\UserDashboard\ReclameController::class, 'index'])->name('reclame');
-    Route::resources([
-       'user-projects' => \App\Http\Controllers\UserDashboard\ProjectUserController::class,
-    ]);
+   
+    Route::get('/project-create', [ProjectUserController::class, 'create'])->name('project.create');
+    Route::post('/project-store', [ProjectUserController::class, 'store'])->name('project.store');
+    Route::get('/project-delete/{id}', [ProjectUserController::class, 'queryDelete'])->name('project.delete');
+    Route::get('/project-un-delete/{id}', [ProjectUserController::class, 'queryUnDelete'])->name('project.un.delete');
+    
     Route::post('/buy', \App\Http\Controllers\UserDashboard\BuyStatusController::class)->name('buy');
     Route::post('/buy-premium', \App\Http\Controllers\UserDashboard\BuyPremiumController::class)->name('buy-premium');
     Route::resources([

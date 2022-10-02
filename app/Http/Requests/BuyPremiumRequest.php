@@ -7,6 +7,7 @@ use App\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 
 class BuyPremiumRequest extends FormRequest

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BuyBannerRequest extends FormRequest
 {
@@ -16,7 +16,13 @@ class BuyBannerRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $response = Gate::inspect('user');
+
+        if ($response->allowed()) {
+            return true;
+        } else {
+            return $response->message();
+        }
     }
 
     /**

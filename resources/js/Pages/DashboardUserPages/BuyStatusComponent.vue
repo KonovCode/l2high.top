@@ -20,7 +20,7 @@
 
                 <section v-if="selected_project" class="flex flex-col items-center mt-5 w-1/1 lg:w-1/2 md:w-5/6 mx-auto">
                     <h2 class="text-blue-500 font-semibold">Покупка статуса для проекта <span class="text-red-500">{{selected_project.title}}</span></h2>
-                    <ul class="mt-3 w-full">
+                    <ul class="my-2 w-full">
                         <li :class="status_name" class="grid grid-cols-12 border-gray-500 rounded h-10 p-0.5">
                             <span class="grid font-bold col-span-1 rounded h-full w-full text-xs sm:text-lg flex items-center justify-center">
                                 <img v-if="status_name === 'premium'" class="premium_icon" src="https://cdn-icons-png.flaticon.com/512/5642/5642665.png" alt="">
@@ -59,6 +59,7 @@ export default {
         background: linear-gradient(90deg, rgba(2,1,71,1) 0%, rgba(180,0,6,1) 62%);
         color: white;
         font-weight: bold;
+        min-height: 40px !important;
     }
 
     .top span {
@@ -72,6 +73,7 @@ export default {
         background: linear-gradient(90deg, rgba(0,6,71,0.4) 0%, rgba(235,193,41,0.6) 62%);
         color: darkslategray;
         font-weight: bold;
+        min-height: 40px !important;
     }
 
     .vip span {
@@ -86,6 +88,7 @@ export default {
         color: dodgerblue;
         animation: flame 3s linear 1s infinite running;
         font-weight: bold;
+        min-height: 40px !important;
     }
 
     .premium span {
@@ -105,4 +108,4 @@ export default {
         left: -8px;
         top: -23px;
     }
-</style>
+</style> 

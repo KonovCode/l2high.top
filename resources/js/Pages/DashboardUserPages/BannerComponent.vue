@@ -87,6 +87,28 @@
                     </section>
                 </div>
             </div>
+
+            <h1 class="text-xl my-8 font-bold text-blue-500 text-center">Инструкция по покупке баннера l2high.top</h1>
+
+            <div class="flex justify-evenly flex-wrap">
+                <section class="w-full md:w-6/12 border mt-5 md:m-0 rounded-lg px-3 py-2" style="min-width: 300px">
+                    <p>Инструкция по добавлению</p>
+                    <ul class="mt-2">
+                        <li class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, magni.</li>
+                        <li class="mt-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem omnis, numquam distinctio delectus natus maiores earum id at fugiat officiis!</li>
+                        <li class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio temporibus accusantium doloremque eveniet quasi? Omnis minima amet dignissimos dolore magnam cupiditate, accusantium ipsa.</li>
+                    </ul>
+                </section>
+                <section class="w-full md:w-4/12 border mt-5 md:m-0 rounded-lg px-3 py-2" style="min-width: 300px">
+                    <p>Доп.Инфо</p>
+                     <ul class="mt-2">
+                        <li class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, non.</li>
+                        <li class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, voluptates?</li>
+                        <li class="mt-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, quaerat voluptates!</li>
+                     </ul>
+                </section>
+            </div>
+
         </div>
 
     </AuthenticatedLayout>

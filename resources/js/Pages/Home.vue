@@ -7,6 +7,7 @@
         <Main></Main>
 
     <Footer></Footer>
+    
     </div>
 </template>
 

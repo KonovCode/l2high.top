@@ -7,18 +7,42 @@
         </template>
 
         <div class="p-6 bg-white border-b border-gray-200">
-            <div class="container mx-auto">
-                <div class="flex justify-center px-6 my-12">
+            <div class="mx-auto">
+                <div class="flex justify-center px-6 my-12 w-full">
                     <!-- Row -->
-                    <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+                    <div class="w-full flex flex-wrap">
                         <!-- Col -->
-                        <div
-                            class="w-full bg-black hidden lg:block lg:w-5/12 bg-contain bg-center rounded-l-lg bg-no-repeat"
-                            style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/47/Lineage_2_Logo.jpg')"
-                        ></div>
+                        <div class="w-full lg:w-4/12 border rounded-l-lg" style="min-width: 300px">
+                            
+                            <section class="flex flex-col">
+                                <div class="flex justify-evenly my-3 border rounded-lg px-1 py-2 mx-2 bg-gray-100">
+                                    <img :src="linkLogotype" alt="l2high.top">
+                                    <select @change="positionLogo($event)" class="h-10 rounded bg-gray-300" name="position">
+                                        <option value="topR">Сверху справа</option>
+                                        <option value="botR">Снизу справа</option>
+                                        <option value="topL">Сверху слева</option>
+                                        <option value="botL">Снизу слева</option>
+                                        
+                                    </select>
+                                </div>
+                                
+                                    <textarea disabled class="mx-3 text-xs sm:text-sm md:text-lg lg:text-lg" cols="30" rows="7" style="resize: none">{{position.selected}}</textarea>
+
+                                    <div class="border rounded-md mt-3 mx-2 pl-8 py-3 mb-2 bg-gray-100">
+                                        <ul class="list-decimal text-xs sm:text-sm md:text-lg lg:text-sm">
+                                            <li class="mt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, ad?</li>
+                                            <li class="mt-1">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe.</li>
+                                            <li class="mt-1">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</li>
+                                            <li class="mt-1">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Commodi facere aut praesentium cupiditate cum ut?</li>
+                                        </ul>
+                                    </div>
+                                
+                            </section>
+
+                        </div>
                         <!-- Col -->
-                        <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none bg-gray-300">
-                            <h3 class="pt-4 text-2xl text-center">Добавить проект</h3>
+                        <div class="w-full lg:w-8/12 bg-white p-5 rounded-lg lg:rounded-l-none bg-gray-300" style="min-width: 300px">
+                            <h3 class="my-5 text-2xl font-bold text-center">Добавить проект</h3>
                             <form-error-message-component v-if="form.errors.count_control"> {{form.errors.count_control}} </form-error-message-component>
                             <form @submit.prevent="store"
                                   class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
@@ -115,6 +139,7 @@
                 </div>
             </div>
         </div>
+
     </AuthenticatedLayout>
 </template>
 
@@ -125,7 +150,7 @@ import {Head, useForm, usePage} from '@inertiajs/inertia-vue3';
 import { useVuelidate } from '@vuelidate/core'
 import {required, url, minLength, maxLength, helpers} from "@vuelidate/validators";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {reactive, computed, watchEffect} from "vue";
+import {reactive, computed, watchEffect, ref} from "vue";
 
 export default {
     name: "AddProjectComponent",
@@ -135,9 +160,50 @@ export default {
 
         const result = computed(() => usePage().props.value.flash.message);
 
+        const linkLogotype = computed(() => usePage().props.value.link_logo);
+
+        const position = ref(
+            {
+                selected: "<a href='http://127.0.0.1:8000' target='_blank' style='position: absolute; z-index:99999; top: 10px; right: 20px;'>" + 
+                            "<img" + " src='" + linkLogotype.value +  "' alt='l2high.top' title='Рейтинг серверов Linage 2'/>" +
+                        "</a>"
+            });
+
+        console.log(usePage().props.value.ziggy.routes);
         watchEffect(() => {
             success(result);
         });
+
+        function positionLogo(e) {
+            
+            switch(e.target.value) {
+                case('topR') : 
+                     position.value.selected = 
+                        "<a href='http://127.0.0.1:8000' target='_blank' style='position: absolute; z-index:99999; top: 10px; right: 20px;'>" + 
+                            "<img" + " src='" + linkLogotype.value +  "' alt='l2high.top' title='Рейтинг серверов Linage 2'/>" +
+                        "</a>";
+                break;
+                case('topL') : 
+                    position.value.selected = 
+                        "<a href='http://127.0.0.1:8000' target='_blank' style='position: absolute; z-index:99999; top: 10px; left: 20px;'>" + 
+                            "<img" + " src='" + linkLogotype.value +  "' alt='l2high.top' title='Рейтинг серверов Linage 2'/>" +
+                        "</a>";
+                break;   
+                case('botR') :
+                    position.value.selected = 
+                        "<a href='http://127.0.0.1:8000' target='_blank' style='position: fixed; z-index:99999; bottom: 10px; right: 15px;'>" + 
+                            "<img" + " src='" + linkLogotype.value +  "' alt='l2high.top' title='Рейтинг серверов Linage 2'/>" +
+                        "</a>"; 
+                break;        
+                case('botL') : 
+                    position.value.selected = 
+                        "<a href='http://127.0.0.1:8000' target='_blank' style='position: fixed; z-index:99999; bottom: 10px; left: 15px;'>" + 
+                            "<img" + " src='" + linkLogotype.value +  "' alt='l2high.top' title='Рейтинг серверов Linage 2'/>" +
+                        "</a>";
+                break;            
+            }
+            
+        }
 
         function success(result) {
             if(result.value) {
@@ -176,7 +242,7 @@ export default {
             form.post(route('project.store'), {preserveScroll: true});
         }
 
-        return {form, store, v$};
+        return {form, store, v$, positionLogo, position, linkLogotype};
     }
 }
 </script>

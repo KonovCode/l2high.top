@@ -19,7 +19,9 @@ class ProjectUserController extends Controller
     {
         $countProject = count(Project::all()->where('user_id', Auth::user()->id));
 
-        return Inertia::render('DashboardUserPages/AddProjectComponent', ['count_project' => $countProject]);
+        $linkLogotype = asset('/storage/imgonline-com-ua-Resize-s6QNQZl3Ab63g8.jpg');
+
+        return Inertia::render('DashboardUserPages/AddProjectComponent', ['count_project' => $countProject, 'link_logo' => $linkLogotype]);
     }
 
     

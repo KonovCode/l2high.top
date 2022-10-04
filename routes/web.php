@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LinkLogotypeController;
 use App\Http\Controllers\UserDashboard\ProjectUserController;
 use App\Models\Banner;
 use Illuminate\Foundation\Application;
@@ -26,6 +27,8 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/l2high-logo', LinkLogotypeController::class)->name('get.logotype');
 
 Route::get('/dashboard', [\App\Http\Controllers\UserDashboard\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

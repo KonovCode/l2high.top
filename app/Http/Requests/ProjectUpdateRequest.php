@@ -3,11 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
 
-class ProjectRequest extends FormRequest
+class ProjectUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,24 +32,23 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'min:3', 'max:20', 'unique:projects'],
+            'title' => ['required', 'string', 'min:3', 'max:20'],
             'chronicles' => ['required', 'string', 'min:5', 'max:20'],
             'rates' => ['required', 'string', 'min:1', 'max:7'],
             'date_open' => ['required', 'date'],
-            'website' => ['required', 'string', 'min:4', 'max:99', 'unique:projects'],
+            'website' => ['required', 'string', 'min:4', 'max:99'],
             'status' => ['string', 'min:3', 'max:7'],
             'status_term' => ['nullable', 'date'],
-            'premium' => ['nullable', 'boolean'],
+            'premium' => ['required', 'boolean'],
             'premium_term' => ['nullable', 'date'],
-            'user_id' => ['nullable', Rule::exists('users', 'id')->where('role', 'admin')],
         ];
     }
 
-    protected function prepareForValidation()
-    {
+    public function prepareForValidation() {
         $this->merge([
+            'date_open' => Carbon::create($this->date_open)->format('Y'.'-'.'m'.'-'.'d'),
             'status_term' => ($this->status !== 'default' ? Carbon::now()->addDays(30)->toDateString() : null),
-            'premium_term' => ($this->premium !== 0 ? Carbon::now()->addDays(30)->toDateString() : null),
+            'premium_term' => ($this->premium === '1' ? Carbon::now()->addDays(30)->toDateString() : null),
         ]);
     }
 
@@ -61,7 +59,6 @@ class ProjectRequest extends FormRequest
             'title.string' => 'Это поле принимает только алфавитные и цифровые символы',
             'title.min' => 'Минимальное количество символов 3',
             'title.max' => 'Максимальное количество символов 20',
-            'title.unique' => 'Токой проект уже существует',
 
             'chronicles.required' => 'Выберите хроники проекта',
             'chronicles.string' => 'Это поле принимает только алфавитные и цифровые символы',
@@ -78,7 +75,6 @@ class ProjectRequest extends FormRequest
             'website.string' => 'Недопустимое значение. Пример ввода - "https://l2high.top"',
             'website.min' => 'Минимальное количество символов 4',
             'website.max' => 'Максимальное количество символов 99',
-            'website.unique' => 'Проект с таким адрес уже существует',
 
             'status.max' => 'Ошибка! Не коректное значение!',
             'status.min' => 'Ошибка! Не коректное значение!',
@@ -86,7 +82,7 @@ class ProjectRequest extends FormRequest
             'premium.boolean' => 'Ошибка! Не коректное значение!',
 
             'user_id.exists' => 'У вас нет прав нв это действие!',
-            'user_id' => 'rule',
         ];
     }
+
 }

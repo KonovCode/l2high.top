@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('name_project')->nullable();
-            $table->string('url')->nullable();
-            $table->string('img')->nullable();
+            $table->string('project_url')->nullable();
+            $table->string('path_img')->nullable();
+            $table->string('file_name')->nullable();
             $table->dateTime('buy_term')->nullable();
+            $table->integer('state')->default('0');
             $table->integer('reserved')->default('0');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
         });
     }
 

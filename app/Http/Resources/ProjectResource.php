@@ -20,6 +20,7 @@ class ProjectResource extends JsonResource
             [
             'id' => $this->id,
             'title' => $this->title,
+            'website' => $this->website,
             'rates' => $this->rates,
             'chronicles' => $this->chronicles,
             'date_open' => (Carbon::create($this->date_open)->format('d'.'.'.'m'.'.'.'y')),

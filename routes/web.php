@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboard\BannerController;
 use App\Http\Controllers\LinkLogotypeController;
 use App\Http\Controllers\UserDashboard\ProjectUserController;
 use App\Models\Banner;
@@ -33,7 +34,12 @@ Route::get('/l2high-logo', LinkLogotypeController::class)->name('get.logotype');
 Route::get('/dashboard', [\App\Http\Controllers\UserDashboard\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['can:admin' ,'auth'])->name('admin.')->group(function () {
-    Route::get('/banner', [\App\Http\Controllers\AdminDashboard\BannerController::class, 'index'])->name('banner');
+    Route::get('/banner', [BannerController::class, 'index'])->name('banner');
+    Route::post('/banner-reset/{id}', [BannerController::class, 'reset'])->name('banner.reset');
+    Route::post('/banner-active/{id}', [BannerController::class, 'activate'])->name('banner.activate');
+    Route::post('/banner-unactive/{id}', [BannerController::class, 'unactivate'])->name('banner.unactivate');
+    Route::get('/banner-download/{id}', [BannerController::class, 'download'])->name('banner.download');
+    Route::post('/banner-upload', [BannerController::class, 'upload'])->name('banner.upload');
     Route::get('/users', [\App\Http\Controllers\AdminDashboard\UserController::class, 'index'])->name('users');
     Route::get('/price', [\App\Http\Controllers\AdminDashboard\PriceController::class, 'index'])->name('price');
     Route::resources([

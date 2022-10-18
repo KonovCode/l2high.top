@@ -19,15 +19,21 @@ class BuyBannerAction {
         
         if(Auth::user()->balance >= $service->price && $banner->reserved === 0) {
             User::where('id', Auth::user()->id)->update(['balance' => (Auth::user()->balance - $service->price)]);
-            $image = Storage::putFile('public/banners', $buy_data->file('img'));
+            
+            $fileName = time().$buy_data['img']->getClientOriginalName();
+            
+            Storage::putFileAs('public/banners', $buy_data->file('img'), $fileName);
+            
             $banner->update([
                 'name_project' => $buy_data['name_project'],
-                'url' => $buy_data['url'],
-                'img' => $image,
+                'project_url' => $buy_data['url'],
+                'path_img' => asset(Storage::url('banners/'.$fileName)),
+                'file_name' => $fileName,
                 'buy_term' => Carbon::now()->addDays($service->term)->toDateTimeString(),
                 'reserved' => 1,
                 'user_id' => Auth::user()->id, 
             ]);
+           
             Session::flash('message', 'ok');
         } else {
             Session::flash('message', 'balance');

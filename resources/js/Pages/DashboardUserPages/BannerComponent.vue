@@ -196,7 +196,7 @@ export default {
                 Swal.fire({
                     title: 'Не достаточно денег на балансе =(',
                     icon: 'warning',
-                    ctoast: true,
+                    toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
                     timer: 3000,
@@ -206,7 +206,7 @@ export default {
                 Swal.fire({
                     title: 'Не коректный ввод.',
                     icon: 'warning',
-                    ctoast: true,
+                    toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
                     timer: 3000,

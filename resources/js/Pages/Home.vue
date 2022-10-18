@@ -6,7 +6,7 @@
 
         <Main></Main>
 
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
     
     </div>
 </template>

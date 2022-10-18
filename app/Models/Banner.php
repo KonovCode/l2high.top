@@ -14,9 +14,11 @@ class Banner extends Model
 
     protected $fillable = [
         'name_project',
-        'img',
-        'url',
+        'project_url',
+        'path_img',
+        'file_name',
         'buy_term',
+        'state',
         'reserved',
         'user_id'
     ];
@@ -30,8 +32,9 @@ class Banner extends Model
                 
             Banner::where('id', $banner->id)->update([
                     'name_project' => null,
-                    'img' => null,
-                    'url' => null,
+                    'project_url' => null,
+                    'path_img' => null,
+                    'file_name' => null,
                     'buy_term' => null,
                     'reserved' => 0,
                     'user_id' => 1,

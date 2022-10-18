@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
+use App\Models\User;
 
 class BannerResource extends JsonResource
 {
@@ -18,10 +19,13 @@ class BannerResource extends JsonResource
         return [
             'id' => $this->id,
             'name_project' => $this->name_project,
-            'img' => $this->img,
-            'url' => $this->url,
+            'path_img' => $this->path_img,
+            'project_url' => $this->project_url,
+            'state' => $this->state,
             'reserved' => $this->reserved,
             'buy_term' =>  (Carbon::create($this->buy_term)->format('d'.'.'.'m'.'.'.'y')),
+
+            'user' => new UserResource(User::findOrFail($this->user_id)),
         ];
     }
 }

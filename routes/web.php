@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminDashboard\BannerController;
+use App\Http\Controllers\AdminDashboard\PriceController;
+use App\Http\Controllers\AdminDashboard\UserController;
 use App\Http\Controllers\LinkLogotypeController;
 use App\Http\Controllers\UserDashboard\ProjectUserController;
 use App\Models\Banner;
@@ -40,8 +42,12 @@ Route::middleware(['can:admin' ,'auth'])->name('admin.')->group(function () {
     Route::post('/banner-unactive/{id}', [BannerController::class, 'unactivate'])->name('banner.unactivate');
     Route::get('/banner-download/{id}', [BannerController::class, 'download'])->name('banner.download');
     Route::post('/banner-upload', [BannerController::class, 'upload'])->name('banner.upload');
-    Route::get('/users', [\App\Http\Controllers\AdminDashboard\UserController::class, 'index'])->name('users');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::post('/user-update-balance/{id}', [UserController::class, 'updateBalance'])->name('user.update.balance');
+    Route::post('/user-block/{id}', [UserController::class, 'blockUser'])->name('block.user');
+    Route::post('/user-unlock/{id}', [UserController::class, 'unblockUser'])->name('unblock.user');
     Route::get('/price', [\App\Http\Controllers\AdminDashboard\PriceController::class, 'index'])->name('price');
+    Route::post('/update-price/{id}', [PriceController::class, 'updatePrice'])->name('update.price');
     Route::resources([
         'projects' => \App\Http\Controllers\AdminDashboard\ProjectController::class,
     ]);

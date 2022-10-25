@@ -23,7 +23,7 @@ class BannerResource extends JsonResource
             'project_url' => $this->project_url,
             'state' => $this->state,
             'reserved' => $this->reserved,
-            'buy_term' =>  (Carbon::create($this->buy_term)->format('d'.'.'.'m'.'.'.'y')),
+            'buy_term' => (Carbon::create($this->buy_term)->format('d'.'.'.'m'.'.'.'y')),
 
             'user' => new UserResource(User::findOrFail($this->user_id)),
         ];

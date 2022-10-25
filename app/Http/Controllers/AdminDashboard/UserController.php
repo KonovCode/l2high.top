@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\AdminDashboard;
 
+use App\Actions\updateUserBalanceAction;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -16,72 +19,32 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Inertia::render('DashboardAdminPages/Users');
+        $users = UserResource::collection(User::all()->where('role', 'user'));
+
+        return Inertia::render('DashboardAdminPages/Users', ['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function updateBalance(Request $request, $id, updateUserBalanceAction $action) 
     {
-        //
+        $action->handle($request, $id);
+
+        return back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function blockUser($id) 
     {
-        //
+        User::findOrFail($id)->update(['user_state' => 1]);
+
+        Session::flash('message', 'block');
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
+    public function unblockUser($id) {
+        User::findOrFail($id)->update(['user_state' => 0]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
+        Session::flash('message', 'unblock');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+        return back();
     }
 }

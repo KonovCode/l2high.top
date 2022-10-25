@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\AdminDashboard;
 
+use App\Actions\updatePriceAction;
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +17,9 @@ class PriceController extends Controller
      */
     public function index()
     {
-        return Inertia::render('DashboardAdminPages/Price');
+       $services = Service::all();
+
+        return Inertia::render('DashboardAdminPages/Price', ['services' => $services]);
     }
 
     /**
@@ -23,64 +27,11 @@ class PriceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function updatePrice(Request $request, $id, updatePriceAction $action) 
     {
-        //
-    }
+        $action->handle($request, $id);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return back();
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+     
 }

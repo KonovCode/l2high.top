@@ -231,6 +231,7 @@ export default {
 
         onBeforeUpdate(() => {
             notification(usePage().props.value.flash.message);
+            premiumLimit.value.count = usePage().props.value.premiumLimit;
         });
 
         const regRates = helpers.regex(/^[GVE]{3}$|^[RvR]{3}$|^([1-9])(\d{1,6})$|^(\d(?:[\.,]\d)?)$/i);

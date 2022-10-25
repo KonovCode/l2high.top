@@ -178,7 +178,7 @@ export default {
         });
 
         function getImg(e) {
-            if (e.target.files[0].size < 50000) {
+            if (e.target.files[0].size < 500000) {
                 form.img = e.target.files[0];
             }
         }

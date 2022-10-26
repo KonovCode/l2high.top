@@ -35,6 +35,11 @@
   </section>
   </div>
 
+  <aside v-if="$page.props.projects.data.length === 0" class="flex flex-col items-center">
+   <h3 class="text-orange-500">У вас пока нет не одного проекта</h3>
+    <Link preserve-scroll :href="route('project.create')" as="button" class="bg-blue-500 text-white font-bold px-1.5 py-1 rounded mt-3 hover:bg-blue-700">Добавить проект</Link>
+  </aside>
+
 </template>
 
 

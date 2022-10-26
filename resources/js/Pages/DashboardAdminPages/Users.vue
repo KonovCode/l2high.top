@@ -18,7 +18,7 @@
                             class="p-2 font-bold uppercase bg-gray-800 text-white border border-gray-500 hidden lg:table-cell">
                             Name</th>
                         <th
-                            class="p-2 font-bold uppercase bg-gray-800 text-white border border-gray-500 hidden lg:table-cell">
+                            class="p-2 w-3/12 font-bold uppercase bg-gray-800 text-white border border-gray-500 hidden lg:table-cell">
                             Balance</th>
                         <th
                             class="p-2 font-bold uppercase bg-gray-800 text-white border border-gray-500 hidden lg:table-cell">
@@ -41,7 +41,7 @@
                             {{ user.name }}
                         </td>
 
-                        <td
+                        <td style="max-height: 50px"
                             class="w-full lg:w-auto p-3 text-gray-800 text-center flex justify-center border border-b text-center relative lg:static">
                             <span
                                 class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Balance</span>
@@ -58,11 +58,19 @@
                                 class="flex justify-center">
                                 <input v-model="form.balance" type="number" :placeholder="user.balance"
                                     class="w-2/4 h-6 text-xs">
-                                <svg @click="sendUpdateBalance(user.id)" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+
+                                <Link @click="closeUpdateBalance()" as="button" preserve-scroll
+                                    :href="route('admin.user.update.balance', user.id)"
+                                    :data="{ balance: form.balance }" method="POST">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="2.5" stroke="currentColor"
                                     class="w-7 h-7 ml-2 text-green-400 hover:text-green-600 cursor-pointer">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                 </svg>
+
+                                </Link>
+
                                 <svg @click="closeUpdateBalance()" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
                                     class="w-7 h-7 text-red-400 hover:text-red-600 cursor-pointer">
@@ -133,14 +141,7 @@ export default {
         function closeUpdateBalance() {
             updateBalance.value.state = false;
             updateBalance.value.selected_id = null;
-        }
-
-        function sendUpdateBalance(user_id) {
-            if (form.balance >= 0 && form.balance <= 500 && user_id) {
-                form.post(route('admin.user.update.balance', user_id));
-                form.reset();
-                closeUpdateBalance();
-            }
+            form.reset();
         }
 
         function notification(message) {
@@ -178,7 +179,7 @@ export default {
         }
 
 
-        return { users, getUpdateBalance, closeUpdateBalance, sendUpdateBalance, updateBalance, form };
+        return { users, getUpdateBalance, closeUpdateBalance, updateBalance, form };
 
     }
 }

@@ -27,9 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             return (new MailMessage)
-                ->level('level')
-                ->greeting('greeting')
-                ->salutation('salutation')
+                ->level('Регистрация аккаунта l2high.top')
+                ->greeting('l2high.top')
+                ->salutation('Рейтинг серверов linage2')
                 ->subject('Подтверждение email')
                 ->line('Нажмите для подтверждения.')
                 ->action('Подтвердить', $url);

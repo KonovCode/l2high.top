@@ -46,6 +46,21 @@
                                 as="button"
                                 class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 text-center mt-1">
                             Удалить</Link>
+                            <Link 
+                                v-if="project.state_public === 0"
+                                preserve-scroll
+                                method="POST"
+                                :href="route('admin.project.add.public', project.id)"
+                                as="button"
+                                class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 text-center mt-1">Разместить</Link>
+
+                                <Link 
+                                v-if="project.state_public"
+                                preserve-scroll
+                                method="POST"
+                                :href="route('admin.project.remove.public', project.id)"
+                                as="button"
+                                class="text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-2 text-center mt-1">Скрыть</Link>
                         </td>
 
                     </tr>
@@ -300,6 +315,24 @@ export default {
                     showConfirmButton: false,
                     timer: 3000,
                 });
+            } else if(res === 'public') {
+                Swal.fire({
+                    title: 'Проект был успешно добавлен на главную страницу!',
+                    icon: 'success',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                });
+            }  else if(res === 'del_public') {
+                Swal.fire({
+                    title: 'Проект был удален с главной страницы сайта!',
+                    icon: 'success',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                });
             }
             else {
                 Swal.fire({
@@ -345,8 +378,8 @@ label.requiredNo:after {
     color: #468EF0;
 }
 
-.noState td button {
-    color: white;
+.noState {
+    background-color: rgb(253, 204, 204) !important;
 }
 
 .noState td {

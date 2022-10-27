@@ -8,7 +8,7 @@ class LinkLogotypeController extends Controller
 {
     public function __invoke()
     {
-        $logotype = asset('/storage/imgonline-com-ua-Resize-s6QNQZl3Ab63g8.jpg');
+        $logotype = asset('/storage/logotype/imgonline-com-ua-Resize-s6QNQZl3Ab63g8.jpg');
 
         return Inertia::render('Logotype', ['logo' => $logotype]);
     }

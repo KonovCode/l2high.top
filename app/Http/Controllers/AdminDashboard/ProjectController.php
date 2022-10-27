@@ -48,11 +48,29 @@ class ProjectController extends Controller
         return back();
     }
 
+    
     public function destroy($id)
     {
         Project::findOrFail($id)->delete();
 
         Session::flash('message', 'delete');
+
+        return back();
+    }
+
+    public function projectAddPublic($id) 
+    {
+        Project::findOrFail($id)->update(['state_public' => 1]);
+
+        Session::flash('message', 'public');
+
+        return back();
+    }
+
+    public function projectRemovePublic($id) {
+        Project::findOrFail($id)->update(['state_public' => 0]);
+
+        Session::flash('message', 'del_public');
 
         return back();
     }

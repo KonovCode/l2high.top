@@ -29,6 +29,7 @@ class ProjectResource extends JsonResource
             'premium' => $this->premium,
             'premium_term' => $this->premium_term,
             'state_project' => $this->state_project,
+            'state_public' => $this->state_public,
             'obt' => $this->obt,
 
             'user' => new UserResource(User::findOrFail($this->user_id)),

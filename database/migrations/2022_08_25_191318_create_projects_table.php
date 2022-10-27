@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('status_term')->nullable();
             $table->integer('premium')->default(0);
             $table->integer('state_project')->default('0');
+            $table->integer('state_public')->default(0);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('website');
         });

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboard\BannerController;
 use App\Http\Controllers\AdminDashboard\PriceController;
+use App\Http\Controllers\AdminDashboard\ProjectController;
 use App\Http\Controllers\AdminDashboard\UserController;
 use App\Http\Controllers\LinkLogotypeController;
 use App\Http\Controllers\UserDashboard\ProjectUserController;
@@ -49,8 +50,10 @@ Route::middleware(['can:admin' ,'auth'])->name('admin.')->group(function () {
     Route::get('/price', [\App\Http\Controllers\AdminDashboard\PriceController::class, 'index'])->name('price');
     Route::post('/update-price/{id}', [PriceController::class, 'updatePrice'])->name('update.price');
     Route::resources([
-        'projects' => \App\Http\Controllers\AdminDashboard\ProjectController::class,
+        'projects' => ProjectController::class,
     ]);
+    Route::post('/project-public/{id}', [ProjectController::class, 'projectAddPublic'])->name('project.add.public');
+    Route::post('/project-remove-public/{id}', [ProjectController::class, 'projectRemovePublic'])->name('project.remove.public');
 });
 
 Route::middleware(['can:user', 'auth', 'verified'])->group(function () {

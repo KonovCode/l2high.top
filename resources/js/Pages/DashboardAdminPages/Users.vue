@@ -101,6 +101,8 @@
                 </tbody>
             </table>
 
+            <p v-if="users.all.length === 0" class="text-center mt-8">Зарегистрированых пользователей не существует на данный момент =(</p>
+
         </div>
 
     </AuthenticatedLayout>

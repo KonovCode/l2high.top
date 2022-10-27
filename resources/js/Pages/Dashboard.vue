@@ -4,7 +4,9 @@ import { Head } from '@inertiajs/inertia-vue3';
 import UserProjects from './DashboardUserPages/GeneralPage/UserProjects.vue';
 import InfoContainerComponent from '@/Pages/DashboardUserPages/GeneralPage/InfoContainerComponent.vue';
 import BalanceInfoComponent from '@/Pages/DashboardUserPages/GeneralPage/BalanceInfoComponent.vue';
-
+import ProjectStatistic from './DashboardAdminPages/GeneralPage/ProjectStatistic.vue';
+import BannerStatistic from './DashboardAdminPages/GeneralPage/BannerStatistic.vue';
+import UserStatistic from './DashboardAdminPages/GeneralPage/UserStatistic.vue';
 
 </script>
 
@@ -12,7 +14,7 @@ import BalanceInfoComponent from '@/Pages/DashboardUserPages/GeneralPage/Balance
 
     <Head title="Dashboard" />
 
-    <BreezeAuthenticatedLayout v-if="$page.props.auth.user.role === 'user'">
+    <BreezeAuthenticatedLayout v-if="$page.props.auth.user.role === 'user' && $page.props.auth.user.user_state === 0">
         <template #header>
             Главная
         </template>
@@ -35,13 +37,27 @@ import BalanceInfoComponent from '@/Pages/DashboardUserPages/GeneralPage/Balance
         </div>
     </BreezeAuthenticatedLayout>
 
+    <BreezeAuthenticatedLayout v-if="$page.props.auth.user.role === 'user' && $page.props.auth.user.user_state === 1">
+        <div class="p-6 bg-white border-b border-gray-200">
+            <h1 class="text-red-500 text-xl text-center my-5">Ваш аккаунт был заблокирован!</h1>
+            <p class="text-blue-500 my-5 font-bold text-center">Если вы не совершали вредоносных действий в отношении l2high.top - свяжитесь с администрацией сайта</p>
+            <p class="text-center text-blue-500">C ув. l2high.top</p>
+        </div>
+    </BreezeAuthenticatedLayout>
+
     <BreezeAuthenticatedLayout v-if="$page.props.auth.user.role === 'admin'">
         <template #header>
             Кабинет {{$page.props.auth.user.name}}
         </template>
 
         <div class="p-6 bg-white border-b border-gray-200">
-            Админ кабинет
+            <h1 class="mx-auto w-10/12 md:w-4/12 text-center text-2xl bg-gray-800 text-white p-1 mb-5 border-2 border-purple-300 rounded-lg font-bold">Статистика l2high</h1>
+            <section class="flex justify-evenly flex-wrap">
+                <ProjectStatistic></ProjectStatistic>
+                <BannerStatistic></BannerStatistic>
+                <UserStatistic></UserStatistic>
+            </section>
+
         </div>
     </BreezeAuthenticatedLayout>
 </template>

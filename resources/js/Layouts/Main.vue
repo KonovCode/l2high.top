@@ -4,7 +4,8 @@
         <slider-main-index-component>
             <slider-main-item-component></slider-main-item-component>
         </slider-main-index-component>
-        <div class="grid grid-cols-1 lg:grid-cols-2 mt-3">
+        <sort-panel-component></sort-panel-component>
+        <div class="grid grid-cols-1 lg:grid-cols-2 mt-2">
             <main-content-index>
                 <main-status-container :status="statusContainers.Top">
                     <main-project-item></main-project-item>
@@ -51,6 +52,8 @@ import SliderMainItemComponent from "@/Components/SliderMainItemComponent.vue";
 import MainContentIndex from "@/Components/MainContentIndex.vue";
 import MainStatusContainer from "@/Components/MainStatusContainer.vue";
 import MainProjectItem from "@/Components/MainProjectItem.vue";
+import SortPanelComponent from "@/Components/SortPanelComponent.vue";
+
 export default {
     name: "Main",
     components: {
@@ -58,7 +61,8 @@ export default {
         MainStatusContainer,
         SliderMainIndexComponent,
         SliderMainItemComponent,
-        MainContentIndex
+        MainContentIndex,
+        SortPanelComponent,
     },
     data() {
         return {

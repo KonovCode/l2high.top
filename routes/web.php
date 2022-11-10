@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminDashboard\BannerController;
 use App\Http\Controllers\AdminDashboard\PriceController;
 use App\Http\Controllers\AdminDashboard\ProjectController;
 use App\Http\Controllers\AdminDashboard\UserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LinkLogotypeController;
 use App\Http\Controllers\UserDashboard\ProjectUserController;
 use App\Models\Banner;
@@ -22,15 +23,17 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    Banner::check_term();
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     Banner::check_term();
+//     return Inertia::render('Home', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/l2high-logo', LinkLogotypeController::class)->name('get.logotype');
 

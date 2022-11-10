@@ -24,7 +24,6 @@ const submit = () => {
 <template>
     <BreezeGuestLayout>
         <Head title="Register" />
-
         <form @submit.prevent="submit">
             <div>
                 <BreezeLabel for="name" value="Имя" />

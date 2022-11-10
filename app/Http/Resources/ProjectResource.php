@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Resources;
-
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProjectResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -23,7 +23,7 @@ class ProjectResource extends JsonResource
             'website' => $this->website,
             'rates' => $this->rates,
             'chronicles' => $this->chronicles,
-            'date_open' => (Carbon::create($this->date_open)->format('d'.'.'.'m'.'.'.'y')),
+            'date_open' => $this->date_open,
             'status' => $this->status,
             'status_term' => $this->status_term,
             'premium' => $this->premium,

@@ -16,13 +16,13 @@
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                                <header-link-component>О нас</header-link-component>
+                                <header-link-component @click="getModalAbout()">О нас</header-link-component>
                         </li>
                         <li>
-                                <header-link-component>Реклама</header-link-component>
+                                <header-link-component @click="getModalReclame()">Реклама</header-link-component>
                         </li>
                         <li>
-                                <header-link-component>Контакты</header-link-component>
+                                <header-link-component @click="getModalContact()">Контакты</header-link-component>
                         </li>
                     </ul>
                 </div>
@@ -30,17 +30,20 @@
             <div v-bind:class="navToggle ? 'hidden -translate-y-20 z-10 lg:hidden' : 'translate-y-0 z-10 lg:hidden'">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
-                        <header-link-component>О нас</header-link-component>
+                        <header-link-component @click="getModalAbout()">О нас</header-link-component>
                     </li>
                     <li>
-                        <header-link-component>Реклама</header-link-component>
+                        <header-link-component @click="getModalReclame()">Реклама</header-link-component>
                     </li>
                     <li>
-                        <header-link-component>Контакты</header-link-component>
+                        <header-link-component @click="getModalContact()">Контакты</header-link-component>
                     </li>
                 </ul>
             </div>
         </nav>
+        <About ref="aboutState"/>
+        <Reclame ref="reclameState"/>
+        <Contact ref="contactState"/>
     </header>
 </template>
 
@@ -48,9 +51,12 @@
 import HeaderLinkComponent from "@/Components/HeaderLinkComponent.vue";
 import HeaderLogoComponent from "@/Components/HeaderLogoComponent.vue";
 import HeaderButtonComponent from "@/Components/HeaderButtonComponent.vue";
+import About from "./modalHome/About.vue";
+import Reclame from './modalHome/Reclame.vue';
+import Contact from './modalHome/Contact.vue';
 export default {
     name: "Header",
-    components: {HeaderLinkComponent, HeaderLogoComponent, HeaderButtonComponent},
+    components: {HeaderLinkComponent, HeaderLogoComponent, HeaderButtonComponent, About, Reclame, Contact},
     data() {
         return {
             navToggle: false,
@@ -63,10 +69,17 @@ export default {
         },
         windowWidth() {
             this.width = document.body.innerWidth;
-            console.log('ky');
            return  console.log(this.width);
+        },
+        getModalAbout() {
+            this.$refs.aboutState.showAbout();
+        },
+        getModalReclame() {
+            this.$refs.reclameState.showReclame();
+        },
+        getModalContact() {
+            this.$refs.contactState.showContact();
         }
-
     }
 }
 </script>

@@ -33,7 +33,7 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/l2high-logo', LinkLogotypeController::class)->name('get.logotype');
 

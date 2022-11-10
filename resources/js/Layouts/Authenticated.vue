@@ -146,6 +146,7 @@ const showingNavigationDropdown = ref(false);
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                         <slot name="header" />
+                        <Link :href="route('home')" class="absolute top-6 right-10 lg:right-28 bg-gray-900 hover:bg-gray-800 text-white px-2 py-1 text-sm rounded">На главную</Link>
                     </h2>
                 </div>
             </header>

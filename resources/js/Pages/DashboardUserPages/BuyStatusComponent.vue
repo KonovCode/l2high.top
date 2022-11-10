@@ -23,13 +23,12 @@
                     <ul class="my-2 w-full">
                         <li :class="status_name" class="grid grid-cols-12 border-gray-500 rounded h-10 p-0.5">
                             <span class="grid font-bold col-span-1 rounded h-full w-full text-xs sm:text-lg flex items-center justify-center">
-                                <img v-if="status_name === 'premium'" class="premium_icon" src="https://cdn-icons-png.flaticon.com/512/5642/5642665.png" alt="">
-                                TOP
+                               <h6> VIP </h6>
                             </span>
                             <p class="text-xs sm:text-sm font-bold col-span-3 xs:col-span-5 flex items-center justify-center">{{selected_project.title}}</p>
                             <p class="col-span-2 text-xs font-bold sm:text-sm flex items-center justify-center">{{selected_project.rates}}</p>
                             <p class="col-span-3 text-xs font-bold sm:text-sm xs:col-span-2 flex items-center justify-center">{{selected_project.chronicles}}</p>
-                            <p class="col-span-3 text-xs font-bold sm:text-sm xs:col-span-2 flex items-center justify-center">{{selected_project.date_open}}</p>
+                            <p class="col-span-3 text-xs font-bold sm:text-sm xs:col-span-2 flex items-center justify-center">{{formatDate(selected_project.date_open)}}</p>
                         </li>
                     </ul>
                 </section>
@@ -50,37 +49,50 @@ export default {
     name: "BuyStatusComponent",
     components: {AuthenticatedLayout, CardNavLink, Head, Link},
     props: {status_name: String, selected_project: Object},
+
+    setup() {
+        function formatDate(date) {
+            return date.split('-').reverse().join('.');
+        }
+
+        return {formatDate}
+    }
 }
 </script>
 
 <style scoped>
-    .top {
-        border-bottom: 2px solid firebrick !important;
-        background: linear-gradient(90deg, rgba(2,1,71,1) 0%, rgba(180,0,6,1) 62%);
-        color: white;
-        font-weight: bold;
-        min-height: 40px !important;
-    }
 
-    .top span {
-        background: firebrick;
-        color: gold;
-        min-width: 40px !important;
-    }
+    .top {
+    background: linear-gradient(90deg, rgba(2, 1, 71, 1) 0%, rgba(180, 0, 6, 1) 62%);
+    border: 1px solid darkgray;
+    color: white;
+    font-weight: bold;
+    min-height: 40px !important;
+}
+
+.top span {
+    min-width: 40px !important;
+    height: 50px;
+    max-height: 35px;
+    align-self: end;
+}
+
+.top h6 {
+    color: gold
+}
 
     .vip {
-        border-bottom: 2px solid gold !important;
-        background: linear-gradient(90deg, rgba(0,6,71,0.4) 0%, rgba(235,193,41,0.6) 62%);
-        color: darkslategray;
-        font-weight: bold;
-        min-height: 40px !important;
-    }
+    color: rgb(200, 147, 1);
+    background-color: antiquewhite;
+    font-weight: bold;
+    min-height: 40px !important;
+}
 
-    .vip span {
-        background: gold;
-        color: firebrick;
-        min-width: 40px !important;
-    }
+.vip span {
+    background: rgb(225, 191, 0);
+    color: white;
+    min-width: 40px !important;
+}
 
     .premium {
         background-color: whitesmoke;
@@ -100,12 +112,4 @@ export default {
         position: relative;
     }
 
-    .premium img {
-        width: 30px;
-        height: 35px;
-        position: absolute;
-        transform: rotate(-25deg);
-        left: -8px;
-        top: -23px;
-    }
 </style> 

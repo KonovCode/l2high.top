@@ -17,7 +17,7 @@
                :title="project.title"
                :rates="project.rates"
                :chronicles="project.chronicles"
-               :date_open="project.date_open"
+               :date_open="formatDate(project.date_open)"
                :id="project.id"
            >
            </BuyStatusListItem>
@@ -37,15 +37,24 @@
 
 <script>
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import MainProjectItem from "@/Components/MainProjectItem.vue";
 import BuyStatusListItem from "@/Components/BuyStatusListItem.vue";
 import {Head, Link} from '@inertiajs/inertia-vue3'
 
 export default
 {
     name: "StatusPage",
-    components: {AuthenticatedLayout, BuyStatusListItem, MainProjectItem, Head, Link},
+    components: {AuthenticatedLayout, BuyStatusListItem, Head, Link},
     props: { projects: Object },
+
+    setup() {
+
+        function formatDate(date) {
+            return date.split('-').reverse().join('.');
+        }
+
+        return {formatDate}
+
+    }
 }
 </script>
 

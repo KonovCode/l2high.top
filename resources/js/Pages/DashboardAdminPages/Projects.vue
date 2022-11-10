@@ -23,7 +23,7 @@
                 <tbody class="flex-1 sm:flex-none">
 
                     <tr v-for="project in projects.data" :key="project"
-                        :class="{noState: project.state_project == 0, okState: project.state_project == 1}"
+                        :class="{noState: project.state_project == 1, okState: project.state_project == 0}"
                         class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 border-b w-full">
 
                         <td class="border-grey-light border p-2">{{project.title}}</td>

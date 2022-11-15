@@ -16,7 +16,7 @@ jobs:
       - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
       # Deploy
-      - run: rsync -e "ssh -p 20022 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . m71516@hostru04.fornex.org:/home/m71516/public_html/l2tops.fun
+      - run: rsync -e "ssh -p 21098 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . /home2/public_html/l2tops.fun
 
 
       # - run: cd app && rsync -e "ssh -p 20022 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . m71516@hostru04.fornex.org:/home/m71516/public_html/wp.maxgraph.ru

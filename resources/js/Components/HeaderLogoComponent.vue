@@ -1,8 +1,5 @@
 <template>
-    <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9 z-50" alt="Flowbite Logo" />
-    <span class="self-center text-xl font-semibold whitespace-nowrap text-orange-500 z-50">
-        <slot></slot>
-    </span>
+    <img src="http://127.0.0.1:8000/storage/banners/l2tops.fun.png" class="mr-3 z-50" style="width: 120px; height:45px" alt="Flowbite Logo" />
 </template>
 
 <script>

@@ -30,7 +30,6 @@ export default {
 
     methods: {
         dayOpenFormat(data) {
-            console.log(data);
             switch(data) {
                 case('Cегодня') :
                 return 'white animate-bounce bg-green-500 h-6 w-16 rounded mx-auto mt-2'

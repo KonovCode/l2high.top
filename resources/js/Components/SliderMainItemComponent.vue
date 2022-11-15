@@ -1,84 +1,57 @@
 <template>
 
 
-    <div v-on:click="showSlide(key)" v-for="(slide, key) in slidesState" :key="key"  :class="slide ? 'slide overflow-hidden active' : 'slide overflow-hidden'" style="background-image: url('#')">
-        <div class="pre_slide">
-            <h5 class="pre_link"></h5>
+    <div @click="active(slide.id)" v-for="(slide, key) in banners.all" :key="key"  :class="activeSlide.id === slide.id ? 'slide overflow-hidden active' : 'slide overflow-hidden'">
+        <img class="slide_img" :src="slide.reserved ? slide.path_img : 'http://127.0.0.1:8000/storage/banners/1.png'" alt="">
+        <div class=" project_name absolute top-0 flex items-start justify-center md:-left-0 md:text-lg" style="width: 100%; height:100%">
+            <h5 :class="slide.reserved ? '' : 'rotate-0 lg:text-xl'" v-text="slide.reserved ? slide.name_project.toUpperCase() : 'l2tops.fun'" class="text-red-500 my-auto font-bold mx-auto rotate-90 whitespace-nowrap"/>
         </div>
-        <a class="slide_href" href="#" v-on:click="startSlider">Перейти на сайт</a>
+        <a class="slide_href bg-blue-500 px-2 py-0.5 rounded hover:bg-blue-600" target="_blank" :href="slide.reserved ? slide.project_url : route('register')" v-text="slide.reserved ? 'Перейти на сайт' : 'Регистариция'"/>
     </div>
 
-
-<!--    <div class="slide border border-2 overflow-hidden hidden">-->
-<!--        <h5 class="prev_img_slide">L2_HIGH.com</h5>-->
-<!--        <div class="hide_content h-100 text-center">-->
-<!--            <h3 class="text-2xl text-danger p-5">L2_HIGH</h3>-->
-<!--            <p class="text-warning">Зарегистрируйся, войди в свой личный кабинет, и розмести баннер своего проэкта!</p>-->
-<!--            <p class="text-white">Больше просмотров, больше переходов, больше <span class="text-success">online</span>!</p>-->
-<!--            <div class="d-flex m-auto w-50 justify-content-between">-->
-<!--                <a href="#">Зарегистрироватся</a>-->
-<!--                <a href="#">Войти</a>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--    </div>-->
-
 </template>
-
 <script>
+import { usePage } from "@inertiajs/inertia-vue3";
+import { ref } from 'vue';
 export default {
+
     name: "SliderMainItemComponent",
-    data() {
-        return {
-            slidesState: {
-                One: true,
-                Two: false,
-                Three: false,
-                Four: false,
-                Five: false,
-                Six: false,
-                Seven: false,
-            },
-            counter: 0,
-            timer: null,
-            interval: 2800,
-        }
-    },
-    methods: {
-        /* При клике по слайду */
-        showSlide(key) {
-            clearTimeout(this.timer); // сбрасываем таймер
-            this.hideSlide(); // сбрасываем все активные слайды
-            this.interval = 5500; // увеличиваю время перезарядки таймера
-            this.startTimer(); // запуская таймер с новым интервалом
-            this.slidesState[key] = true;
-        },
+    
+    setup() {
 
-        hideSlide() { // зброс всех active слайдов
-            let slides = this.slidesState;
-            for(let slideKey in slides) {
-                slides[slideKey] = false;
+        const banners = ref({all: usePage().props.value.banners});
+
+        const activeSlide = ref({id: 1});
+
+        const delay = ref({time: 3000, pressed: false});
+
+        let timer;
+
+        startTimer();
+
+        function active(slide) {
+            activeSlide.value.id = slide;
+            delay.value.time = 5000;
+            clearTimeout(timer);
+            startTimer();
+        }
+
+        function moveSlide() {
+            startTimer();
+            if(activeSlide.value.id < banners.value.all.length) {
+                activeSlide.value.id++;
+            } else {
+                activeSlide.value.id = 1;
             }
-        },
-        /* Запуск слайдера */
-        startSlider() {
-            const slideKeys = Object.keys(this.slidesState); // получаем ключи всех слайдов
-            this.counter < (slideKeys.length - 1) ? this.counter++ : this.counter = 0; // проверяем что б прокрутов было меньше чем слайдов
-            this.hideSlide();
-            this.slidesState[slideKeys[this.counter]] = true;
-            this.startTimer();
-        },
-        startTimer() {
-            this.timer = setTimeout(this.startSlider, this.interval);
-            this.interval = 2800;
         }
-    },
-    mounted() {
-        setTimeout(() =>{
-            this.startSlider()
-        }, 2000)
-    },
 
+        function startTimer() {
+            timer = setTimeout(moveSlide, delay.value.time);
+            delay.value.time = 3000;
+        }
+
+        return { banners, activeSlide, active };
+    }
 }
 </script>
 
@@ -109,13 +82,33 @@ export default {
     font-weight: 600;
 }
 
+.project_name {
+    opacity: 1;
+}
+
+.slide.active .project_name {
+    opacity: 0 !important;
+    transition: opacity 0.3s ease-in 0.1s;
+}
+
 .slide.active {
     flex: 10;
     max-width: 750px;
 }
 
+.slide_img {
+    width: 100%;
+    height: 100%;
+    opacity: 0 !important;
+}
+
 .slide.active .slide_href {
-    opacity: 1;
+    opacity: 1 !important;
     transition: opacity 0.3s ease-in 0.4s;
+}
+
+.slide.active .slide_img {
+    opacity: 1 !important;
+    transition: opacity 0.2s ease-in 0.3s;
 }
 </style>

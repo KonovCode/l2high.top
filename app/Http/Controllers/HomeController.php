@@ -28,12 +28,15 @@ class HomeController extends Controller
 
         $services = Service::all();
 
+        $banners = Banner::all();
+
         return Inertia::render('Home', 
         [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'projects' => $projects,
             'services' => $services,
+            'banners' => $banners,
         ]);
     }
 }

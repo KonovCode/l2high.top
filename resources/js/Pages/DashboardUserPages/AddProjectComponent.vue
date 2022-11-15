@@ -168,11 +168,11 @@ export default {
                             "<img" + " src='" + linkLogotype.value +  "' alt='l2high.top' title='Рейтинг серверов Linage 2'/>" +
                         "</a>"
             });
-
-        console.log(usePage().props.value.ziggy.routes);
         watchEffect(() => {
             success(result);
         });
+
+        console.log(usePage().props.value.link_logo);
 
         function positionLogo(e) {
             
